@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Login</title>
+</head>
+<body>
+	<h1>Admin Login</h1>
+	<% if (typeof msg != undefined) { %>
+		<p><%= msg %></p>
+	<% } %>
+	<div>
+		<button><a href="/">Home</a></button>
+	</div>
+	<form action="/adminLogin" method="POST">
+		<div>
+		<input type="text" id="username" name="username" />
+		</div>
+		<div>
+		<input type="password" id="password" name="password" />
+		</div>
+		<button type="submit">login</button>
+	</form>
+</body>
+</html>

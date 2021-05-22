@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>admin Update User</title>
+</head>
+<body>
+	<h1>Update User</h1>
+	<form action="/updateUser" method="POST">
+		<input type=hidden value="<%= user.id %>" name="id" />
+		<input type="text" value="<%= user.username %>" id="username" name="username" />
+		<button type="submit">update user</button>
+	</form>
+
+	<h1>Delete User</h1>
+	<form action="/deleteUser" method="POST">
+		<input type="hidden" value="<%= user.id %>" name="id" />
+		<button type="submit">delete user</button>
+	</form>
+</body>
+</html>

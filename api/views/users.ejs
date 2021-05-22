@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Users</title>
+</head>
+<body>
+	<div>
+		<a href="/adminHome">Admin Home</a>
+	</div>
+	<div>
+		<a href="/createUser">Create User</a>
+	</div>
+	<div>
+	<h3>User List</h3>
+
+	<table style="width:10">
+		<tr>
+			<th>username</th>
+			<th>first name</th> 
+			<th>last name</th>
+			<th>email</th>
+		</tr>
+	<% if (users.length > 0) { %>
+		<% for (let user of users) { %>
+			  <tr>
+			    <td><a href="/updateUser/<%= user.id %>"><%= user.username %></a></td>
+			    <td><%= user.first_name %></td>
+			    <td><%= user.last_name %></td>
+			    <td><%= user.email %></td>
+			  </tr>
+		<% } %>
+	<% } %>
+	</table>
+</div>
+</body>
+</html>

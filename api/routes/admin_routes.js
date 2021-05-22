@@ -1,0 +1,35 @@
+const express = require('express');
+const controller = require('../controllers/admin_controller');
+const adminRouter = express.Router();
+const authenticateJWT = require('../security/authenticateJWT');
+
+// Admin Login
+adminRouter.get('/', controller.getIndex);
+adminRouter.get('/adminLogin', controller.getAdminLogin);
+adminRouter.post('/adminLogin', controller.postAdminLogin);
+adminRouter.post('/adminLogout', authenticateJWT, controller.postAdminLogout);
+adminRouter.get('/adminHome', authenticateJWT, controller.getAdminHome);
+
+// Users Section
+adminRouter.get('/users', authenticateJWT, controller.getUsers);
+adminRouter.get('/createUser', authenticateJWT, controller.getCreateUser);
+adminRouter.post('/postUser', authenticateJWT, controller.postUser);
+adminRouter.get('/updateUser/:id', authenticateJWT, controller.getUpdateUser);
+adminRouter.post('/updateUser', authenticateJWT, controller.postUpdateUser);
+adminRouter.post('/deleteUser', authenticateJWT, controller.postDeleteUser);
+
+// Courses Section
+adminRouter.get('/courses', authenticateJWT, controller.getCourses);
+adminRouter.get('/createCourse', authenticateJWT, controller.getCreateCourse);
+adminRouter.post('/postCourse', authenticateJWT, controller.postCourse);
+adminRouter.get('/updateCourse/:id', authenticateJWT, controller.getUpdateCourse);
+adminRouter.post('/postUpdateCourse', authenticateJWT, controller.postUpdateCourse);
+adminRouter.post('/deleteCourse', authenticateJWT, controller.deleteCourse);
+
+// Enrollment Section
+
+adminRouter.get('/enrollment', authenticateJWT, controller.getEnrollment);
+adminRouter.post('/enrollment', authenticateJWT, controller.postEnrollment);
+adminRouter.get('/enrollments', authenticateJWT, controller.getEnrollments);
+
+module.exports = adminRouter;

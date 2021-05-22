@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+</head>
+
+<h1>Welcome! <%= user %></h1>
+	<form action="/userLogout" method="POST">
+		<button type="submit">logout</button>
+	</form>
+<body>
+	<!-- Table of Classes enrolled -->
+	<table>
+		<tr>
+			<h2>Courses</h2>
+		</tr>
+	<% if (enrollments.length > 0) { %>
+		<% for (let e of enrollments) { %>
+		<tr>
+		    <td><h3><%= e.course_name %></h3></td>
+		</tr>
+		<% } %>
+	<% } %>
+	</table>
+</body>
+</html>

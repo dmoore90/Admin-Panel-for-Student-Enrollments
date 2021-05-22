@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Enrollments</title>
+</head>
+<body>
+	<h1>Enrollments</h1>
+   	<div><a href="/users">Users</a></div>
+    <div><a href="/courses">Courses</a></div>
+    <div><a href="/enrollment">New Enrollment</a></div>
+    <div><a href="/enrollments">Enrollments</a></div>
+    <div><a href="/adminHome">Admin Home</a></div>
+	</br>
+	<h3>Enrollments</h3>
+	<table style="width:50%">
+		<tr>
+			<th>Course</th>
+			<th>Student</th> 
+		</tr>
+	<% if (enrollments.length > 0) { %>
+		<% for (let e of enrollments) { %>
+		<tr>
+		    <td><a href="/updateEnrollment/<%= e.id %>"><%= e.course_name %></a></td>
+		    <td><%= e.student_name %></td>
+		</tr>
+		<% } %>
+	<% } %>
+	</table>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Courses</title>
+</head>
+<body>
+	<div>
+		<a href="/adminHome">Admin Home</a>
+	</div>
+	<div>
+		<a href="/createCourse">Create Course</a>
+	</div>
+	<h3>Course List</h3>
+	<table style="width:50%">
+		<tr>
+			<th>Course</th>
+			<th>beginning date</th> 
+			<th>ending date</th>
+			<th>instructor</th>
+		</tr>
+	<% if (courses.length > 0) { %>
+		<% for (let course of courses) { %>
+		<tr>
+		    <td><a href="/updateCourse/<%= course.id %>"><%= course.course_name %></a></td>
+		    <td><%= course.beginning_date %></td>
+		    <td><%= course.ending_date %></td>
+		    <td><%= course.instructor %></td>
+		</tr>
+		<% } %>
+	<% } %>
+	</table>
+</body>
+</html>

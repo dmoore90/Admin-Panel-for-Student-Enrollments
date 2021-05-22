@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>admin Update Course</title>
+</head>
+<body>
+	<h1>Update Course</h1>
+    <form action="/postUpdateCourse" method="POST">
+    	<input type=hidden value="<%= course.id %>" name="id" />
+        <ul>
+            <label for="course_name">Course Name: </label>
+            <input type="text" value="<%= course.course_name %>" id="course_name" name="course_name" />
+        </ul>
+        <ul>
+            <label for="beginning_date">Beginning Date: </label>
+            <input type="text" value="<%= course.beginning_date %>" id="beginning_date" name="beginning_date" />
+        </ul>
+        <ul>
+            <label for="ending_date">Ending Date: </label>
+            <input type="text" value="<%= course.ending_date %>" id="ending_date" name="ending_date" />
+        </ul>
+    	<ul>
+            <label for="instructor">Instructor: </label>
+            <input type="text" value="<%= course.instructor %>" id="instructor" name="instructor" />
+        </ul>
+        <ul>
+            <input type="submit" value="submit">
+        </ul>
+	</form>
+
+	<h1>Delete Course</h1>
+	<form action="/deleteCourse" method="POST">
+		<input type="hidden" value="<%= course.id %>" name="id" />
+		<button type="submit">delete course</button>
+	</form>
+</body>
+</html>

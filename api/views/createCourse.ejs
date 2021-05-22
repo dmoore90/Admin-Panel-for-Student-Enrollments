@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Create Course</title>
+</head>
+<body>
+    <div>
+        <a href="/adminHome">Admin Home</a>
+    </div>
+
+	<h1>Create Course</h1>
+    <div>
+        <% if (typeof msg != undefined) { %>
+            <p><%= msg %></p>
+        <% } %>
+    </div>
+    <form action="/postCourse" method="POST">
+        <ul>
+            <label for="course_name">Course Name: </label>
+            <input id="course_name" type="text" name="course_name"></ul>
+        </ul>
+        <ul>
+            <label for="beginning_date">Beginning Date: </label>
+            <input id="beginning_date" type="text" name="beginning_date"></ul>
+        </ul>
+        <ul>
+            <label for="ending_date">Ending Date: </label>
+            <input id="ending_date" type="text" name="ending_date"></ul>
+        </ul>
+    	<ul>
+            <label for="instructor">Instructor: </label>
+            <input id="instructor" type="text" name="instructor"></ul>
+        </ul>
+        <ul>
+            <input type="submit" value="submit">
+        </ul>
+	</form>
+
+</body>
+</html>

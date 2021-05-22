@@ -31,7 +31,6 @@ class AdminLogin extends Component {
 		})
 		.then(res => {
 			if (res.status === 200) {
-				window.Cookies.set('auth', res.data.auth);
 				this.props.history.push('/List')
 			} else {
 				const error = new Error(res.error);

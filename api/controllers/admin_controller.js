@@ -44,7 +44,7 @@ exports.postAdminLogin = (req, res, next) => {
 					if (success) {
 			        	const token = jwt.sign({ id: user.dataValues.id, username: user.username }, JWT_KEY.secret, { expiresIn: "1h" });
 						// res.cookie('auth', token, { httpOnly: true });
-						res.status(200).send({ auth: token })
+						res.status(200).cookie('auth', token).send();
 					} else {
 						return res.sendStatus(401);
 					}

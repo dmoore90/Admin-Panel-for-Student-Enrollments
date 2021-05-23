@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class AdminLogin extends Component {
 	constructor(props) {
 		super(props);
@@ -13,9 +14,7 @@ class AdminLogin extends Component {
 
 	handleChange(event) {
 		const { value, name } = event.target;
-		this.setState({ 
-			[name]: value
-		})
+		this.setState({ [name]: value })
 	}
 
 	handleSubmit(event) {
@@ -31,7 +30,7 @@ class AdminLogin extends Component {
 		})
 		.then(res => {
 			if (res.status === 200) {
-				this.props.history.push('/List')
+				return this.props.history.push('/adminHome')
 			} else {
 				const error = new Error(res.error);
 				throw error;
@@ -46,8 +45,8 @@ class AdminLogin extends Component {
 				<h1>Admin Login</h1>
 				<div>
 			      <form onSubmit={this.handleSubmit}>
-			        <label>username: <input type="text" name="username" value={this.state.email} onChange={this.handleChange} /></label>
-			        <label>password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} /></label>
+			        <div><label>username: <input type="text" name="username" value={this.state.email} onChange={this.handleChange} /></label></div>
+			        <div><label>password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} /></label></div>
 			        <input type="submit" value="Submit" />
 			      </form>
 				</div>

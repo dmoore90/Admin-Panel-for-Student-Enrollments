@@ -12,12 +12,8 @@ const path = require('path');
 // Public Home
 exports.getIndex = (req, res, next) => {
 	// res.render('index.ejs');
-	// const list = [
-	// 		{id: 1, name: "tom"},
-	// 		{id: 2, name: "gerry"}, 
-	// 		{id: 3, name: "jenny"}
-	// 	];
 	var list = ["item1", "item2", "item3"];
+	// var list = "james";
 	res.json(list)
     // res.sendFile(path.join(process.cwd()+'/views/index.ejs'));
 
@@ -43,8 +39,9 @@ exports.postAdminLogin = (req, res, next) => {
 				.then(success => {
 					if (success) {
 			        	const token = jwt.sign({ id: user.dataValues.id, username: user.username }, JWT_KEY.secret, { expiresIn: "1h" });
-						// res.cookie('auth', token, { httpOnly: true });
-						res.status(200).cookie('auth', token).send();
+						res.cookie('auth', token, { httpOnly: true });
+						// res.status(200).cookie('auth', token).send();
+						res.redirect('adminHome')
 					} else {
 						return res.sendStatus(401);
 					}
@@ -53,6 +50,19 @@ exports.postAdminLogin = (req, res, next) => {
 					console.log(err);
 				})
 		})
+}
+
+exports.getAdminHome = (req, res) => {
+	const username = req.user.username;
+	var list = ["adminhome json"];
+	// res.json(list);
+	// if (username == "admin") {
+	// 	// res.render('adminHome', {page_user: username});
+	// 	res.json(list)
+	// } else {
+	// 	res.sendStatus(401);
+	// }
+	res.json(list);
 }
 
 exports.postAdminLogout = (req, res, next) => {
@@ -67,15 +77,6 @@ exports.postAdminLogout = (req, res, next) => {
 	res.clearCookie('auth')
 
 	return res.redirect('adminLogin');
-}
-
-exports.getAdminHome = (req, res) => {
-	const username = req.user.username;
-	if (username == "admin") {
-		res.render('adminHome', {page_user: username});
-	} else {
-		res.sendStatus(401);
-	}
 }
 
 // Users Section

@@ -53,16 +53,13 @@ exports.postAdminLogin = (req, res, next) => {
 }
 
 exports.getAdminHome = (req, res) => {
-	const username = req.user.username;
-	var list = ["adminhome json"];
-	// res.json(list);
-	// if (username == "admin") {
-	// 	// res.render('adminHome', {page_user: username});
-	// 	res.json(list)
-	// } else {
-	// 	res.sendStatus(401);
-	// }
-	res.json(list);
+	var username = [req.user.username];
+	if (username == "admin") {
+		// res.render('adminHome', {page_user: username});
+		res.json(username)
+	} else {
+		res.sendStatus(401);
+	}
 }
 
 exports.postAdminLogout = (req, res, next) => {
@@ -102,9 +99,8 @@ exports.getUsers = (req, res, next) => {
 		where: { role: 'NOSUPERUSER'}
 	})
 		.then(users => {
-			return res.render('users', { 
-				users: users
-			});
+			// return res.render('users', { users: users });
+			return res.json(users);
 		})
 		.catch(err => {
 			console.log(err);
@@ -234,9 +230,8 @@ exports.getCourses = (req, res) => {
 	const username = decoded.username;
 	Course.findAll()
 	.then(courses => {
-		return res.render('courses', { 
-			courses: courses
-		});
+		// return res.render('courses', { courses: courses });
+		return res.json(courses);
 	})
 	.catch(err => {
 		console.log(err);
@@ -334,7 +329,8 @@ exports.getEnrollments = (req, res) => {
 	}
 	Enrollment.findAll()
 	.then(enrollments => {
-		return res.render('enrollments', { enrollments: enrollments })
+		// return res.render('enrollments', { enrollments: enrollments })
+		return res.json(enrollments);
 	})
 	.catch(err => { console.log(err) })
 }

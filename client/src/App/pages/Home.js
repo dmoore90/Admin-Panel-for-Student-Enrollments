@@ -5,11 +5,8 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Project Home</h1>
+        <h1>Home</h1>
         <ul>
-        <Link to={'./list'}>
-          <li><button variant="raised">My List</button></li>
-        </Link>
         <Link to={'./adminLogin'}>
           <li><button variant="raised">Admin Login</button></li>
         </Link>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class AdminHome extends Component {
 	constructor() {
@@ -22,6 +23,20 @@ class AdminHome extends Component {
 						{this.state.list.map(i => 
 							<div>{i}</div>
 						)}
+				        <ul>
+					        <Link to={'./users'}>
+					          <li><button variant="raised">Users</button></li>
+					        </Link>
+					        <Link to={'./courses'}>
+					          <li><button variant="raised">Courses</button></li>
+					        </Link>
+					        <Link to={'./enroll'}>
+					          <li><button variant="raised">Enroll</button></li>
+					        </Link>
+					        <Link to={'./enrollments'}>
+					          <li><button variant="raised">Enrollments</button></li>
+					        </Link>					                      
+				        </ul>
 					</div>
 			</div>
 		);

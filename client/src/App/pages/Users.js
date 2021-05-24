@@ -23,7 +23,10 @@ class Users extends Component {
 				        <ul>
 					        <Link to={'./adminHome'}>
 					          <li><button variant="raised">AdminHome</button></li>
-					        </Link>				                      
+					        </Link>
+					        <Link to={'./postUser'}>
+					          <li><button variant="raised">CreateUser</button></li>
+					        </Link>					        				                      
 				        </ul>
 						{this.state.users.map(user => 
 							<li key={user.id}>{ user.first_name } { user.last_name } { user.email } { user.username }</li>

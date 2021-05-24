@@ -7,6 +7,7 @@ import Users from './pages/Users.js';
 import Courses from './pages/Courses.js';
 import Enroll from './pages/Enroll.js';
 import Enrollments from './pages/Enrollments.js';
+import CreateUser from './pages/CreateUser.js';
 
 class App extends Component {
 	render() {
@@ -20,6 +21,7 @@ class App extends Component {
 					<Route path="/courses" component={Courses}/>
 					<Route path="/enroll" component={Enroll}/>
 					<Route path="/enrollments" component={Enrollments}/>
+					<Route path="/postUser" component={CreateUser}/>
 				</Switch>
 			</div>
 		)

@@ -29,7 +29,10 @@ class Users extends Component {
 					        </Link>					        				                      
 				        </ul>
 						{this.state.users.map(user => 
-							<li key={user.id}>{ user.first_name } { user.last_name } { user.email } { user.username }</li>
+					        <Link to={`./updateUser/${user.id}`}>
+					          <li key={user.id}>{ user.first_name } { user.last_name } { user.email } { user.username }</li>
+					        </Link>	
+							
 						)}				        
 					</div>
 			</div>

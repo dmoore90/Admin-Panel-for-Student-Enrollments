@@ -8,11 +8,20 @@ class UpdateUser extends Component {
 			last_name: '',
 			email: '',
 			username: '', 
-			password: '',
-			pass_confirmation: ''
+			// user: []
 		};
+
+    	this.componentDidMount = this.componentDidMount.bind(this);
    		this.handleChange = this.handleChange.bind(this);
     	this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	componentDidMount() {
+		// const { match: { params } } = this.props;
+		const id = this.props.match.params.id;
+		fetch(`http://localhost:3000/updateUser/${id}`, {credentials: 'include'})
+			.then(res => res.json())
+			.then(user => { this.setState(user[0])})
 	}
 
 	handleChange(event) {
@@ -22,7 +31,7 @@ class UpdateUser extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		fetch('http://localhost:3000/postUser', {
+		fetch(`http://localhost:3000/updateUser`, {
 			method: 'POST',
 			withCredentials: true,
 			credentials: 'include',
@@ -42,18 +51,17 @@ class UpdateUser extends Component {
 		.catch(err => console.log(err));
 	}
 
-	render() {
+	render(props) {
 		return (
 			<div className="App">
-				<h1>Create User</h1>
+				<h1>Update User</h1>
 				<div>
 			      <form onSubmit={this.handleSubmit}>
+			      	<div><input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} /></div>
 			    	<div><label>first_name: <input type="text" name="first_name" value={this.state.first_name} onChange={this.handleChange} /></label></div>
 			    	<div><label>last_name: <input type="text" name="last_name" value={this.state.last_name} onChange={this.handleChange} /></label></div>
 			    	<div><label>email: <input type="text" name="email" value={this.state.email} onChange={this.handleChange} /></label></div>
 			        <div><label>username: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} /></label></div>
-			        <div><label>password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} /></label></div>
-					<div><label>Password Confirmation: <input type="password" name="pass_confirmation" value={this.state.pass_confirmation} onChange={this.handleChange} /></label></div>
 			        <input type="submit" value="Submit" />
 			      </form>
 				</div>
@@ -62,4 +70,4 @@ class UpdateUser extends Component {
 	}
 }
 
-export default CreateUser;
+export default UpdateUser;

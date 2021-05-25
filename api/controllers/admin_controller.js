@@ -38,7 +38,7 @@ exports.postAdminLogin = (req, res, next) => {
 			bcrypt.compare(password, user.password)
 				.then(success => {
 					if (success) {
-			        	const token = jwt.sign({ id: user.dataValues.id, username: user.username }, JWT_KEY.secret, { expiresIn: "1h" });
+			        	const token = jwt.sign({ id: user.dataValues.id, username: user.username }, JWT_KEY.secret, { expiresIn: "4h" });
 						res.cookie('auth', token, { httpOnly: true });
 						// res.status(200).cookie('auth', token).send();
 						res.redirect('adminHome')
@@ -171,14 +171,15 @@ exports.getUpdateUser = (req, res) => {
 		return res.sendStatus(401);
 	}
 	const id = req.params.id;
+	console.log(id);
 	User.findByPk(id)
 		.then(user => {
-			if (!user) {
-				return res.redirect('/users');
-			}
-			res.render('updateUser.ejs', {
-				user: user
-			})
+			// if (!user) {
+			// 	return res.redirect('/users');
+			// }
+			// res.render('updateUser.ejs', { user: user })
+
+			return res.json([user]);
 		})
 		.catch(err => {
 			console.log(err);
@@ -190,9 +191,15 @@ exports.postUpdateUser = (req, res) => {
 		return res.sendStatus(401);
 	}
 	const id = req.body.id;
+	const updated_first_name = req.body.first_name;
+	const updated_last_name = req.body.last_name;
+	const updated_email = req.body.email;
 	const updated_username = req.body.username;
 	User.findByPk(id)
 		.then(user => {
+			user.first_name = updated_first_name;
+			user.last_name = updated_last_name;
+			user.email = updated_email;
 			user.username = updated_username;
 			return user.save();
 		})

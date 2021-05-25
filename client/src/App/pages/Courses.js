@@ -23,10 +23,16 @@ class Courses extends Component {
 				        <ul>
 					        <Link to={'./adminHome'}>
 					          <li><button variant="raised">AdminHome</button></li>
-					        </Link>				                      
+					        </Link>
+					        <Link to={'./postCourse'}>
+					          <li><button variant="raised">CreateCourse</button></li>
+					        </Link>					                      
 				        </ul>
 						{this.state.courses.map(course => 
-							<li key={course.id}>{ course.course_name } { course.beginning_date } { course.ending_date } { course.instructor }</li>
+					        <Link to={`./updateCourse/${course.id}`}>
+					
+					          <li key={course.id}>{ course.course_name } { course.beginning_date } { course.ending_date } { course.instructor }</li>
+					        </Link>	
 						)}	
 					</div>
 			</div>

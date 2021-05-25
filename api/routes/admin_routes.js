@@ -23,7 +23,7 @@ adminRouter.get('/courses', authenticateJWT, controller.getCourses);
 adminRouter.get('/createCourse', authenticateJWT, controller.getCreateCourse);
 adminRouter.post('/postCourse', authenticateJWT, controller.postCourse);
 adminRouter.get('/updateCourse/:id', authenticateJWT, controller.getUpdateCourse);
-adminRouter.post('/postUpdateCourse', authenticateJWT, controller.postUpdateCourse);
+adminRouter.post('/updateCourse', authenticateJWT, controller.postUpdateCourse);
 adminRouter.post('/deleteCourse', authenticateJWT, controller.deleteCourse);
 
 // Enrollment Section

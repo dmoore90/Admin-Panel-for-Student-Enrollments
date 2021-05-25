@@ -174,12 +174,7 @@ exports.getUpdateUser = (req, res) => {
 	console.log(id);
 	User.findByPk(id)
 		.then(user => {
-			// if (!user) {
-			// 	return res.redirect('/users');
-			// }
-			// res.render('updateUser.ejs', { user: user })
-
-			return res.json([user]);
+			return res.json(user);
 		})
 		.catch(err => {
 			console.log(err);
@@ -249,6 +244,7 @@ exports.getCreateCourse = (req, res) => {
 	if (req.user.username != "admin") {
 		return res.sendStatus(401);
 	}
+	const username = req.user.username;
 	res.render('createCourse.ejs', {msg: null});
 }
 
@@ -256,6 +252,13 @@ exports.postCourse = (req, res) => {
 	if (req.user.username != "admin") {
 		return res.sendStatus(401);
 	}
+
+	const authHeader = req.headers['cookie']
+	const token = authHeader && authHeader.split('=')[1]
+	const decoded = jwt.verify(token, JWT_KEY.secret);
+	const userId = decoded.id;
+	const admin = decoded.username;
+
 	const course_name = req.body.course_name;
 	const beginning_date = req.body.beginning_date;
 	const ending_date = req.body.ending_date;
@@ -279,12 +282,11 @@ exports.getUpdateCourse = (req, res) => {
 	const id = req.params.id;
 	Course.findByPk(id)
 		.then(course => {
-			if (!course) {
-				return res.redirect('/courses');
-			}
-			res.render('updateCourse.ejs', {
-				course: course
-			})
+			// if (!course) {
+			// 	return res.redirect('/courses');
+			// }
+			// res.render('updateCourse.ejs', { course: course })
+			return res.json(course);
 		})
 		.catch(err => {
 			console.log(err);

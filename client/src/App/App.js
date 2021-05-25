@@ -9,6 +9,8 @@ import Enroll from './pages/Enroll.js';
 import Enrollments from './pages/Enrollments.js';
 import CreateUser from './pages/CreateUser.js';
 import UpdateUser from './pages/UpdateUser.js';
+import CreateCourse from './pages/CreateCourse.js';
+import UpdateCourse from './pages/UpdateCourse.js';
 
 class App extends Component {
 	render() {
@@ -22,8 +24,12 @@ class App extends Component {
 					<Route path="/courses" component={Courses}/>
 					<Route path="/enroll" component={Enroll}/>
 					<Route path="/enrollments" component={Enrollments}/>
+
 					<Route path="/postUser" component={CreateUser}/>
 					<Route path="/updateUser/:id" component={UpdateUser}/>
+
+					<Route path="/postCourse" component={CreateCourse}/>
+					<Route path="/updateCourse/:id" component={UpdateCourse}/>
 				</Switch>
 			</div>
 		)

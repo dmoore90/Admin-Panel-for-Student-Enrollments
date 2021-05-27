@@ -11,17 +11,17 @@ const JWT_KEY = require('../config/security');
 // User Login Section
 
 exports.getUserLogin = (req, res) => {
-	res.render('userLogin.ejs', {msg: null});
+ 	res.sendStatus(200);
 }
 
 exports.postUserLogin = (req, res) => {
 	const username = req.body.username;
 	const password = req.body.password;
 
-	User.findOne({ where: { username: username } })
+	User.findOne({ where: { username: username, role: "NOSUPERUSER" } })
 		.then(user => {
 			if (!user) {
-				return res.render('userLogin', {msg: "invalid username or password"})
+				res.sendStatus(401);
 			}
 			bcrypt.compare(password, user.password)
 				.then(success => {
@@ -30,7 +30,7 @@ exports.postUserLogin = (req, res) => {
 						res.cookie('auth', token);
 						return res.redirect('userHome')
 					} else {
-						return res.render('userLogin', {msg: "invalid username or password"});
+						return res.sendStatus(401);
 					}
 				})
 				.catch(err => {
@@ -43,7 +43,6 @@ exports.getUserHome = (req, res) => {
 	const username = req.user.username;
 	Enrollment.findAll({ where: { username: username }})
 	.then(enrollments => {
-		// return res.render('userHome', {user: username, enrollments: enrollments })
 		return res.json(enrollments);
 	})
 	.catch(err => { console.log(err) })

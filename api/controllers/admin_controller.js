@@ -11,17 +11,11 @@ const path = require('path');
 
 // Public Home
 exports.getIndex = (req, res, next) => {
-	// res.render('index.ejs');
-	var list = ["item1", "item2", "item3"];
-	// var list = "james";
-	res.json(list)
-    // res.sendFile(path.join(process.cwd()+'/views/index.ejs'));
-
+ 	res.sendStatus(200);
 }
 
 // Login Section
 exports.getAdminLogin = (req, res, next) => {
-	// res.render('adminLogin.ejs', {msg: null});
 	var list = ["<!admin json test!>"];
 	res.json(list)
 }
@@ -32,7 +26,7 @@ exports.postAdminLogin = (req, res, next) => {
 
 	User.findOne({ where: { username: username } })
 		.then(user => {
-			if (!user || user.username != "admin") {
+			if (!user) {
 				return res.sendStatus(401);
 			}
 			bcrypt.compare(password, user.password)

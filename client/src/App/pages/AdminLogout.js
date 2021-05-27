@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Auth from '../Auth';
 
 class AdminLogout extends Component {
 	constructor(props) {
@@ -9,6 +10,12 @@ class AdminLogout extends Component {
 		};
 
     	this.handleSubmit = this.handleSubmit.bind(this);
+    	this.logout = this.logout.bind(this);
+	}
+
+	logout() {
+		Auth.signout();
+		console.log(Auth.getAuth());
 	}
 
 	handleSubmit() {
@@ -23,6 +30,7 @@ class AdminLogout extends Component {
 		})
 		.then(res => {
 			if (res.status === 200) {
+				this.logout();
 				this.props.history.push('/')
 			} else {
 				const error = new Error(res.error);

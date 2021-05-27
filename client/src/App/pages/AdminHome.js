@@ -21,7 +21,7 @@ class AdminHome extends Component {
 				<h1>Admin Home</h1>
 					<div>
 						{this.state.list.map(i => 
-							<div>{i}</div>
+							<div>Welcome {i}!</div>
 						)}
 				        <ul>
 					        <Link to={'./users'}>

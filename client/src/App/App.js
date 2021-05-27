@@ -13,6 +13,9 @@ import CreateCourse from './pages/CreateCourse.js';
 import UpdateCourse from './pages/UpdateCourse.js';
 import AdminLogout from './pages/AdminLogout.js';
 import UpdateEnrollment from './pages/UpdateEnrollment.js';
+import UserLogin from './pages/UserLogin.js';
+import UserHome from './pages/UserHome.js';
+import UserLogout from './pages/UserLogout.js';
 
 class App extends Component {
 	render() {
@@ -37,6 +40,10 @@ class App extends Component {
 
 					<Route path="/postCourse" component={CreateCourse}/>
 					<Route path="/updateCourse/:id" component={UpdateCourse}/>
+
+					<Route path="/userLogin" component={UserLogin}/>
+					<Route path="/userHome" component={UserHome}/>
+					<Route path="/userLogout" component={UserLogout}/>
 				</Switch>
 			</div>
 		)

@@ -43,7 +43,8 @@ exports.getUserHome = (req, res) => {
 	const username = req.user.username;
 	Enrollment.findAll({ where: { username: username }})
 	.then(enrollments => {
-		return res.render('userHome', {user: username, enrollments: enrollments })
+		// return res.render('userHome', {user: username, enrollments: enrollments })
+		return res.json(enrollments);
 	})
 	.catch(err => { console.log(err) })
 }

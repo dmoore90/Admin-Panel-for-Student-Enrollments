@@ -338,17 +338,43 @@ exports.getEnrollments = (req, res) => {
 	}
 	Enrollment.findAll()
 	.then(enrollments => {
-		// return res.render('enrollments', { enrollments: enrollments })
 		return res.json(enrollments);
+
 	})
 	.catch(err => { console.log(err) })
 }
 
-exports.getEnrollment = (req, res) => {
+exports.getUpdateEnrollment = (req, res) => {
 	if (req.user.username != "admin") {
 		return res.sendStatus(401);
 	}
-	return res.render('enrollment');
+	const id = req.params.id;
+	Enrollment.findByPk(id)
+	.then(enrollment => {
+		return res.json(enrollment);
+	})
+	.catch(err => console.log(err));
+}
+
+exports.postUpdateEnrollment = (req, res) => {
+	if (req.user.username != "admin") {
+		return res.sendStatus(401);
+	}
+	const id = req.body.id;
+	const course_name = req.body.course_name;
+	const username = req.body.username;
+	Enrollment.findByPk(id)
+		.then(enrollment => {
+			enrollment.course_name = course_name;
+			enrollment.username = username;
+			return enrollment.save();
+		})
+		.then(result => {
+			res.redirect('/enrollments');
+		})
+		.catch(err => {
+			console.log(err);
+		})
 }
 
 exports.postEnrollment = (req, res) => {
@@ -356,14 +382,14 @@ exports.postEnrollment = (req, res) => {
 		return res.sendStatus(401);
 	}
 	const course_name = req.body.course_name;
-	const student_name = req.body.student_name;
-
+	const username = req.body.username;
+	
 		Enrollment.create({
 			course_name: course_name,
-			student_name: student_name
+			username: username
 		}).then(results => {
 			res.redirect('enrollments')
-		}).catch(err => { 
-			console.log(err) 
+		}).catch(err => {
+			console.log(err)
 		})
 }

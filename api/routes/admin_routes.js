@@ -28,8 +28,9 @@ adminRouter.post('/deleteCourse', authenticateJWT, controller.deleteCourse);
 
 // Enrollment Section
 
-adminRouter.get('/enrollment', authenticateJWT, controller.getEnrollment);
-adminRouter.post('/enrollment', authenticateJWT, controller.postEnrollment);
+adminRouter.get('/updateEnrollment/:id', authenticateJWT, controller.getUpdateEnrollment);
+adminRouter.post('/updateEnrollment', authenticateJWT, controller.postUpdateEnrollment);
+adminRouter.post('/enroll', authenticateJWT, controller.postEnrollment);
 adminRouter.get('/enrollments', authenticateJWT, controller.getEnrollments);
 
 module.exports = adminRouter;

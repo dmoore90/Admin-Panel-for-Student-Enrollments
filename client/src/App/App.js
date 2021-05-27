@@ -11,6 +11,8 @@ import CreateUser from './pages/CreateUser.js';
 import UpdateUser from './pages/UpdateUser.js';
 import CreateCourse from './pages/CreateCourse.js';
 import UpdateCourse from './pages/UpdateCourse.js';
+import AdminLogout from './pages/AdminLogout.js';
+import UpdateEnrollment from './pages/UpdateEnrollment.js';
 
 class App extends Component {
 	render() {
@@ -18,12 +20,17 @@ class App extends Component {
 			<div>
 				<Switch>
 					<Route exact path="/" component={Home}/>
+					
 					<Route path="/adminLogin" component={AdminLogin}/>
+					<Route path="/adminLogout" component={AdminLogout}/>
+
 					<Route path="/adminHome" component={AdminHome}/>
 					<Route path="/users" component={Users}/>
 					<Route path="/courses" component={Courses}/>
+
 					<Route path="/enroll" component={Enroll}/>
 					<Route path="/enrollments" component={Enrollments}/>
+					<Route path="/updateEnrollment/:id" component={UpdateEnrollment}/>
 
 					<Route path="/postUser" component={CreateUser}/>
 					<Route path="/updateUser/:id" component={UpdateUser}/>

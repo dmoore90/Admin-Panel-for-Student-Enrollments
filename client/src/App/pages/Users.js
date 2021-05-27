@@ -32,7 +32,6 @@ class Users extends Component {
 					        <Link to={`./updateUser/${user.id}`}>
 					          <li key={user.id}>{ user.first_name } { user.last_name } { user.email } { user.username }</li>
 					        </Link>	
-							
 						)}				        
 					</div>
 			</div>

@@ -35,7 +35,10 @@ class AdminHome extends Component {
 					        </Link>
 					        <Link to={'./enrollments'}>
 					          <li><button variant="raised">Enrollments</button></li>
-					        </Link>					                      
+					        </Link>
+					        <Link to={'./adminLogout'}>
+					          <li><button variant="raised">AdminLogout</button></li>
+					        </Link>						        					                      
 				        </ul>
 					</div>
 			</div>

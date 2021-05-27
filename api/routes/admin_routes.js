@@ -32,5 +32,6 @@ adminRouter.get('/updateEnrollment/:id', authenticateJWT, controller.getUpdateEn
 adminRouter.post('/updateEnrollment', authenticateJWT, controller.postUpdateEnrollment);
 adminRouter.post('/enroll', authenticateJWT, controller.postEnrollment);
 adminRouter.get('/enrollments', authenticateJWT, controller.getEnrollments);
+adminRouter.post('/deleteEnrollment', authenticateJWT, controller.deleteEnrollment);
 
 module.exports = adminRouter;

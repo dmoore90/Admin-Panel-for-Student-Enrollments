@@ -13,6 +13,7 @@ class UpdateCourse extends Component {
     	this.componentDidMount = this.componentDidMount.bind(this);
    		this.handleChange = this.handleChange.bind(this);
     	this.handleSubmit = this.handleSubmit.bind(this);
+    	this.handleDelete = this.handleDelete.bind(this);
 	}
 
 	componentDidMount() {
@@ -49,6 +50,28 @@ class UpdateCourse extends Component {
 		.catch(err => console.log(err));
 	}
 
+	handleDelete(event) {
+		event.preventDefault();
+		fetch(`http://localhost:3000/deleteCourse`, {
+			method: 'POST',
+			withCredentials: true,
+			credentials: 'include',
+			body: JSON.stringify(this.state),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+		.then(res => {
+			if (res.status === 200) {
+				return this.props.history.push('/courses')
+			} else {
+				const error = new Error(res.error);
+				throw error;
+			}
+		})
+		.catch(err => console.log(err));
+	}
+
 	render(props) {
 		return (
 			<div className="App">
@@ -61,6 +84,13 @@ class UpdateCourse extends Component {
 			    	<div><label>ending_date: <input type="text" name="ending_date" value={this.state.ending_date} onChange={this.handleChange} /></label></div>
 			        <div><label>instructor: <input type="text" name="instructor" value={this.state.instructor} onChange={this.handleChange} /></label></div>
 			        <input type="submit" value="Submit" />
+			      </form>
+				</div>
+				<h1>Delete Course</h1>
+				<div>
+			      <form onSubmit={this.handleDelete}>
+			      	<div><input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} /></div>
+			        <input type="submit" value="delete" />
 			      </form>
 				</div>
 			</div>

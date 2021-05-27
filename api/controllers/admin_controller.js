@@ -393,3 +393,15 @@ exports.postEnrollment = (req, res) => {
 			console.log(err)
 		})
 }
+
+exports.deleteEnrollment = (req, res) => {
+	if (req.user.username != "admin") {
+		return res.sendStatus(401);
+	}
+	const id = req.body.id;
+	Enrollment.destroy({ where: { id: id }})
+		.then(result => {
+			res.redirect('/enrollments');
+		})
+		.catch(err => { console.log(err) });
+}

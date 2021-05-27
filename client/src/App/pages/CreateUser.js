@@ -35,8 +35,7 @@ class CreateUser extends Component {
 			if (res.status === 200) {
 				return this.props.history.push('/users')
 			} else {
-				const error = new Error(res.error);
-				throw error;
+				return this.props.history.push('/users')
 			}
 		})
 		.catch(err => console.log(err));

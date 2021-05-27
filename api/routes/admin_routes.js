@@ -4,8 +4,8 @@ const adminRouter = express.Router();
 const authenticateJWT = require('../security/authenticateJWT');
 
 // Admin Login
-adminRouter.get('/', controller.getIndex);
-adminRouter.get('/adminLogin', controller.getAdminLogin);
+// adminRouter.get('/', controller.getIndex);
+// adminRouter.get('/adminLogin', controller.getAdminLogin);
 adminRouter.post('/adminLogin', controller.postAdminLogin);
 adminRouter.post('/adminLogout', authenticateJWT, controller.postAdminLogout);
 adminRouter.get('/adminHome', authenticateJWT, controller.getAdminHome);

@@ -10,14 +10,14 @@ const JWT_KEY = require('../config/security');
 const path = require('path');
 
 // Public Home
-exports.getIndex = (req, res, next) => {
- 	res.sendStatus(200);
-}
+// exports.getIndex = (req, res, next) => {
+//  	res.sendStatus(200);
+// }
 
 // Login Section
 exports.getAdminLogin = (req, res, next) => {
 	var list = ["<!admin json test!>"];
-	res.json(list)
+	res.status(200).json(list)
 }
 
 exports.postAdminLogin = (req, res, next) => {
@@ -34,7 +34,6 @@ exports.postAdminLogin = (req, res, next) => {
 					if (success) {
 			        	const token = jwt.sign({ id: user.dataValues.id, username: user.username }, JWT_KEY.secret, { expiresIn: "4h" });
 						res.cookie('auth', token, { httpOnly: true });
-						// res.status(200).cookie('auth', token).send();
 						res.redirect('adminHome')
 					} else {
 						return res.sendStatus(401);
@@ -49,10 +48,9 @@ exports.postAdminLogin = (req, res, next) => {
 exports.getAdminHome = (req, res) => {
 	var username = [req.user.username];
 	if (username == "admin") {
-		// res.render('adminHome', {page_user: username});
-		res.json(username)
+		return res.status(200).json(username)
 	} else {
-		res.sendStatus(401);
+		return res.sendStatus(401);
 	}
 }
 
@@ -66,8 +64,7 @@ exports.postAdminLogout = (req, res, next) => {
 	const userId = decoded.id;
 	const admin = decoded.username;
 	res.clearCookie('auth')
-
-	return res.redirect('adminLogin');
+	return res.sendStatus(200);
 }
 
 // Users Section
@@ -76,7 +73,7 @@ exports.getUpdateUser = (req, res) => {
 	if (req.user.username != "admin") {
 		return res.sendStatus(401);
 	}
-	res.render('updateUser');
+	return res.sendStatus(200);
 }
 
 exports.getUsers = (req, res, next) => {
@@ -93,8 +90,7 @@ exports.getUsers = (req, res, next) => {
 		where: { role: 'NOSUPERUSER'}
 	})
 		.then(users => {
-			// return res.render('users', { users: users });
-			return res.json(users);
+			return res.status(200).json(users);
 		})
 		.catch(err => {
 			console.log(err);
@@ -107,7 +103,7 @@ exports.getCreateUser = (req, res) => {
 		return res.sendStatus(401);
 	}
 	const username = req.user.username;
-	res.render('createUser.ejs', {msg: null});
+	return res.status(200).json(username);
 }
 
 exports.postUser = (req, res) => {
@@ -140,23 +136,11 @@ exports.postUser = (req, res) => {
 				res.redirect('users')
 			}).catch(err => { console.log(err) })
 		} else {
-			User.findAll({ where: { role: 'NOSUPERUSER'}})
-				.then(users=> { 
-					return res.render('users', {
-						page_user: admin, 
-						users: users, 
-						msg: "password must be between 8 and 16 characters!" 
-					})
-				})
+			return res.sendStatus(400)
 		}
 	}
 	else {
-		User.findAll({ where: { role: 'NOSUPERUSER'}})
-			.then(users=> { 
-				return res.render('createUser', {
-					msg: "passwords do not match!" 
-				})
-			})
+		return res.sendStatus(400);
 	}
 }
 
@@ -226,8 +210,7 @@ exports.getCourses = (req, res) => {
 	const username = decoded.username;
 	Course.findAll()
 	.then(courses => {
-		// return res.render('courses', { courses: courses });
-		return res.json(courses);
+		return res.status(200).json(courses);
 	})
 	.catch(err => {
 		console.log(err);
@@ -239,7 +222,7 @@ exports.getCreateCourse = (req, res) => {
 		return res.sendStatus(401);
 	}
 	const username = req.user.username;
-	res.render('createCourse.ejs', {msg: null});
+	return res.sendStatus(200);
 }
 
 exports.postCourse = (req, res) => {
@@ -276,10 +259,6 @@ exports.getUpdateCourse = (req, res) => {
 	const id = req.params.id;
 	Course.findByPk(id)
 		.then(course => {
-			// if (!course) {
-			// 	return res.redirect('/courses');
-			// }
-			// res.render('updateCourse.ejs', { course: course })
 			return res.json(course);
 		})
 		.catch(err => {

@@ -43,8 +43,7 @@ class UpdateCourse extends Component {
 			if (res.status === 200) {
 				return this.props.history.push('/courses')
 			} else {
-				const error = new Error(res.error);
-				throw error;
+				return this.props.history.push('/courses')
 			}
 		})
 		.catch(err => console.log(err));

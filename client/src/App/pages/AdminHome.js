@@ -11,7 +11,13 @@ class AdminHome extends Component {
 
 	componentDidMount() {
 		fetch('http://localhost:3000/adminHome', {credentials: 'include'})
-			.then(res => res.json())
+			.then((res) => { 
+				if (res.status === 200) {
+					return res.json()
+				} else {
+					return this.props.history.push('/')
+				} 
+			})
 			.then(list => this.setState({ list }))
 	}
 

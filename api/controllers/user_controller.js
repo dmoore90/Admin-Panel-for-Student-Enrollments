@@ -43,7 +43,7 @@ exports.getUserHome = (req, res) => {
 	const username = req.user.username;
 	Enrollment.findAll({ where: { username: username }})
 	.then(enrollments => {
-		return res.json(enrollments);
+		return res.status(200).json(enrollments);
 	})
 	.catch(err => { console.log(err) })
 }

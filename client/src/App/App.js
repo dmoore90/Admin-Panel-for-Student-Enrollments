@@ -18,8 +18,6 @@ import UserLogin from './pages/UserLogin.js';
 import UserHome from './pages/UserHome.js';
 import UserLogout from './pages/UserLogout.js';
 
-import Auth from './Auth.js';
-
 class App extends Component {
 	render() {
 		const App = () => (
@@ -28,32 +26,28 @@ class App extends Component {
 					<Route exact path="/" component={Home}/>
 					
 					<Route path="/adminLogin" component={AdminLogin}/>
-					<PrivateRoute path="/adminLogout" component={AdminLogout}/>
+					<Route path="/adminLogout" component={AdminLogout}/>
+					<Route path="/adminHome" component={AdminHome}/>
+					
 
-					<PrivateRoute path="/adminHome" component={AdminHome}/>
-					{/*<Route path="/adminHome" component={AdminHome}/>*/}
-					<PrivateRoute path="/users" component={Users}/>
-					<PrivateRoute path="/courses" component={Courses}/>
+					<Route path="/enroll" component={Enroll}/>
+					<Route path="/enrollments" component={Enrollments}/>
+					<Route path="/updateEnrollment/:id" component={UpdateEnrollment}/>
 
-					<PrivateRoute path="/enroll" component={Enroll}/>
-					<PrivateRoute path="/enrollments" component={Enrollments}/>
-					<PrivateRoute path="/updateEnrollment/:id" component={UpdateEnrollment}/>
+					<Route path="/users" component={Users}/>
+					<Route path="/postUser" component={CreateUser}/>
+					<Route path="/updateUser/:id" component={UpdateUser}/>
 
-					<PrivateRoute path="/postUser" component={CreateUser}/>
-					<PrivateRoute path="/updateUser/:id" component={UpdateUser}/>
-
-					<PrivateRoute path="/postCourse" component={CreateCourse}/>
-					<PrivateRoute path="/updateCourse/:id" component={UpdateCourse}/>
+					<Route path="/courses" component={Courses}/>
+					<Route path="/postCourse" component={CreateCourse}/>
+					<Route path="/updateCourse/:id" component={UpdateCourse}/>
 
 					<Route path="/userLogin" component={UserLogin}/>
-					<PrivateRoute path="/userHome" component={UserHome}/>
-					<PrivateRoute path="/userLogout" component={UserLogout}/>
+					<Route path="/userHome" component={UserHome}/>
+					<Route path="/userLogout" component={UserLogout}/>
 				</Switch>
 			</div>
 		)
-		const PrivateRoute = ({ component: Component, ...rest }) => (
-				<Route {...rest} render={props => Auth.getAuth() ? ( <Component {...props} /> ) : ( <Redirect to={{ pathname: "/" }} /> ) } />
-			);
 		return (
 			<Switch>
 				<App />

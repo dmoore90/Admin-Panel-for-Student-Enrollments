@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Auth from '../Auth';
 
 class AdminLogin extends Component {
 	constructor(props) {
@@ -10,12 +9,6 @@ class AdminLogin extends Component {
 		};
    		this.handleChange = this.handleChange.bind(this);
     	this.handleSubmit = this.handleSubmit.bind(this);
-    	this.login = this.login.bind(this);
-	}
-
-	login() {
-		Auth.authenticate();
-		console.log(Auth.getAuth());
 	}
 
 	handleChange(event) {
@@ -36,7 +29,6 @@ class AdminLogin extends Component {
 		})
 		.then(res => {
 			if (res.status === 200) {
-				this.login();
 				return this.props.history.push('/adminHome')
 			} else {
 				return this.props.history.push('/')

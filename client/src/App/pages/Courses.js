@@ -11,8 +11,16 @@ class Courses extends Component {
 
 	componentDidMount() {
 		fetch('http://localhost:3000/courses', {credentials: 'include'})
-			.then(res => res.json())
-			.then(courses => this.setState({ courses }))
+			.then((res) => {
+				if (res.status === 200) {
+					return res.json()
+				} else {
+					return this.props.history.push('/')
+				} 
+			})
+			.then(courses => {
+				this.setState({ courses })
+			})
 	}
 
 	render() {

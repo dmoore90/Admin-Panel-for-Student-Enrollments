@@ -44,6 +44,7 @@ exports.postAdminLogin = (req, res, next) => {
 exports.getAdminHome = (req, res) => {
 	var username = [req.user.username];
 	if (username == "admin") {
+		res.location('adminHome')
 		return res.status(200).json(username)
 	} else {
 		return res.status(401);

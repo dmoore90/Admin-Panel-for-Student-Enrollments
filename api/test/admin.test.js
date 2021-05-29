@@ -7,12 +7,29 @@ const userCredentials = {
   password: 'password'
 }
 
+const fakeCredentials = {
+  username: 'foo',
+  password: 'bar'
+}
+
 var Cookies;
 var authenticatedUser = request.agent(app);
 
 describe('Admin Login Tests', function(done){
 
-  it('should post adminLogin', function(done) {
+  // invalid post adminLogin
+  it('should post 401', function(done) {
+    authenticatedUser
+    .post('/adminLogin')
+    .send(fakeCredentials)
+    .end((err, res) => {
+      expect(res.statusCode).to.equal(401);
+      done();
+    })
+  })
+
+  // valid post adminLogin 
+  it('should post adminLogin, redirect 302', function(done) {
     authenticatedUser
     .post('/adminLogin')
     .send(userCredentials)

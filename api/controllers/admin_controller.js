@@ -31,7 +31,6 @@ exports.postAdminLogin = (req, res, next) => {
 						res.cookie('auth', token, { httpOnly: true, secure: true, sameSite: true });
 						res.redirect('adminHome')
 					} else {
-						res.setHeader("Location", "/")
 						return res.sendStatus(401);
 					}
 				})

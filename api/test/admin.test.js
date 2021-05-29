@@ -15,10 +15,10 @@ const fakeCredentials = {
 var Cookies;
 var authenticatedUser = request.agent(app);
 
-describe('Admin Login Tests', function(done){
+describe('Admin Login Tests', (done) =>{
 
   // invalid post adminLogin
-  it('should post 401', function(done) {
+  it('should post 401', (done) => {
     authenticatedUser
     .post('/adminLogin')
     .send(fakeCredentials)
@@ -29,7 +29,7 @@ describe('Admin Login Tests', function(done){
   })
 
   // valid post adminLogin 
-  it('should post adminLogin, redirect 302', function(done) {
+  it('should post adminLogin, redirect 302', (done) => {
     authenticatedUser
     .post('/adminLogin')
     .send(userCredentials)
@@ -42,13 +42,13 @@ describe('Admin Login Tests', function(done){
   })
 
   // not logged in to adminHome
-  it('should return a 401 response', function(done){
+  it('should return a 401 response', (done) =>{
     request(app).get('/adminHome')
     .expect(401, done);
   });
 
   // logged in to adminHome
-  it('should return a 200 response if the user is logged in', function(done){
+  it('should return a 200 response if the user is logged in', (done) =>{
     request(app).get('/adminHome')
     .set('Cookie', Cookies)
     .end(function(err, res) {
@@ -59,7 +59,7 @@ describe('Admin Login Tests', function(done){
   });
 
   // admin logout test
-  it('should return 200 response with post adminLogout', function(done) {
+  it('should return 200 response with post adminLogout', (done) => {
     // request(app).post('/adminLogout').set('Cookie', Cookies)
     var req = request(app).post('/adminLogout');
     req.cookies = Cookies;
@@ -70,7 +70,7 @@ describe('Admin Login Tests', function(done){
   });
 
   // admin logout test no auth
-  it('should return 401 response post adminLogout no cookies', function(done) {
+  it('should return 401 response post adminLogout no cookies', (done) => {
     request(app).post('/adminLogout')
     .end((err, res) => {
       expect(res.statusCode).to.equal(401);
@@ -78,6 +78,19 @@ describe('Admin Login Tests', function(done){
     })
   })
 
-  
+  // admin get users should return list of users and 200 status
+  it('should return 200 with list of users', (done) => {
+    request(app).get('/users')
+    .set('Cookie', Cookies)
+    .expect('Content-Type', /json/)
+    .end((err, res) => {
+      expect(res.body).to.be.an.instanceof(Array)
+      .and.to.have.property(0)
+      .that.includes.all.keys([ 'id', 'first_name', 'last_name', 'email', 'username'])
+      expect(res.statusCode).to.equal(200);
+      done();
+    })
+  })
 
+  
 });

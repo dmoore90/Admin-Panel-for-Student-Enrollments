@@ -58,4 +58,26 @@ describe('Admin Login Tests', function(done){
     })
   });
 
+  // admin logout test
+  it('should return 200 response with post adminLogout', function(done) {
+    // request(app).post('/adminLogout').set('Cookie', Cookies)
+    var req = request(app).post('/adminLogout');
+    req.cookies = Cookies;
+    req.end(function(err, res) {
+      expect(res.statusCode).to.equal(200);
+      done();
+    })
+  });
+
+  // admin logout test no auth
+  it('should return 401 response post adminLogout no cookies', function(done) {
+    request(app).post('/adminLogout')
+    .end((err, res) => {
+      expect(res.statusCode).to.equal(401);
+      done();
+    })
+  })
+
+  
+
 });

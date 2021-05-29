@@ -54,12 +54,7 @@ exports.postAdminLogout = (req, res, next) => {
 	if (req.user.username != "admin") {
 		return res.sendStatus(401);
 	}
-	const authHeader = req.headers['cookie']
-	const token = authHeader && authHeader.split('=')[1]
-	const decoded = jwt.verify(token, JWT_KEY.secret);
-	const userId = decoded.id;
-	const admin = decoded.username;
-	res.clearCookie('auth')
+	res.clearCookie('auth');
 	return res.sendStatus(200);
 }
 

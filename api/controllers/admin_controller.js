@@ -9,16 +9,11 @@ const localStorage = require('local-storage');
 const JWT_KEY = require('../config/security');
 const path = require('path');
 
-// Public Home
-// exports.getIndex = (req, res, next) => {
-//  	res.sendStatus(200);
-// }
-
 // Login Section
-exports.getAdminLogin = (req, res, next) => {
-	var list = ["<!admin json test!>"];
-	res.status(200).json(list)
-}
+// exports.getAdminLogin = (req, res, next) => {
+// 	var list = ["<!admin json test!>"];
+// 	res.status(200).json(list)
+// }
 
 exports.postAdminLogin = (req, res, next) => {
 	const username = req.body.username;
@@ -32,10 +27,11 @@ exports.postAdminLogin = (req, res, next) => {
 			bcrypt.compare(password, user.password)
 				.then(success => {
 					if (success) {
-			        	const token = jwt.sign({ id: user.dataValues.id, username: user.username }, JWT_KEY.secret, { expiresIn: "4h" });
-						res.cookie('auth', token, { httpOnly: true });
+			        	const token = jwt.sign({ id: user.dataValues.id, username: user.username }, JWT_KEY.secret, { expiresIn: "1h" });
+						res.cookie('auth', token, { httpOnly: true, secure: true, sameSite: true });
 						res.redirect('adminHome')
 					} else {
+						res.setHeader("Location", "/")
 						return res.sendStatus(401);
 					}
 				})
@@ -50,7 +46,7 @@ exports.getAdminHome = (req, res) => {
 	if (username == "admin") {
 		return res.status(200).json(username)
 	} else {
-		return res.sendStatus(401);
+		return res.status(401);
 	}
 }
 

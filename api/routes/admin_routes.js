@@ -12,7 +12,7 @@ adminRouter.get('/adminHome', authenticateJWT, controller.getAdminHome);
 
 // Users Section
 adminRouter.get('/users', authenticateJWT, controller.getUsers);
-adminRouter.get('/createUser', authenticateJWT, controller.getCreateUser);
+// adminRouter.get('/createUser', authenticateJWT, controller.getCreateUser);
 adminRouter.post('/postUser', authenticateJWT, controller.postUser);
 adminRouter.get('/updateUser/:id', authenticateJWT, controller.getUpdateUser);
 adminRouter.post('/updateUser', authenticateJWT, controller.postUpdateUser);

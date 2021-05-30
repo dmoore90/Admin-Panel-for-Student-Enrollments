@@ -89,13 +89,13 @@ exports.getUsers = (req, res, next) => {
 
 }
 
-exports.getCreateUser = (req, res) => {
-	if (req.user.username != "admin") {
-		return res.sendStatus(401);
-	}
-	const username = req.user.username;
-	return res.status(200).json(username);
-}
+// exports.getCreateUser = (req, res) => {
+// 	if (req.user.username != "admin") {
+// 		return res.sendStatus(401);
+// 	}
+// 	const username = req.user.username;
+// 	return res.status(200).json(username);
+// }
 
 exports.postUser = (req, res) => {
 	if (req.user.username != "admin") {
@@ -124,7 +124,7 @@ exports.postUser = (req, res) => {
 				username: username,
 				password: hashedPassword
 			}).then(results => {
-				res.redirect('users')
+				return res.redirect('users');
 			}).catch(err => { console.log(err) })
 		} else {
 			return res.sendStatus(400)

@@ -66,12 +66,6 @@ exports.getUsers = (req, res, next) => {
 	if (req.user.username != "admin") {
 		return res.sendStatus(401);
 	}
-	const authHeader = req.headers['cookie']
-	const token = authHeader && authHeader.split('=')[1]
-	const decoded = jwt.verify(token, JWT_KEY.secret);
-	const id = decoded.id;
-	const username = decoded.username;
-
 	User.findAll({
 		where: { role: 'NOSUPERUSER'}
 	})
@@ -81,14 +75,12 @@ exports.getUsers = (req, res, next) => {
 		.catch(err => {
 			console.log(err);
 		})
-
 }
 
 exports.postUser = (req, res) => {
 	if (req.user.username != "admin") {
 		return res.sendStatus(401);
 	}
-
 	const first_name = formValidation.validateName(req.body.first_name);
 	const last_name = formValidation.validateName(req.body.last_name);
 	const email = formValidation.validateEmail(req.body.email);
@@ -96,24 +88,19 @@ exports.postUser = (req, res) => {
 	const password = req.body.password;
 	const pass_confirmation = req.body.pass_confirmation;
 
-	if (password == pass_confirmation) {
-		if (password.length >= 8 && password.length <= 16) {
-			const hashedPassword = bcrypt.hashSync(password, 10);
-			User.create({
-				first_name: first_name,
-				last_name: last_name,
-				email: email,
-				username: username,
-				password: hashedPassword
-			})
-			.then(result => {
-				return res.redirect('users');
-			}).catch(err => { return res.sendStatus(400) })
-		} else {
-			return res.sendStatus(400)
-		}
-	}
-	else {
+	if (formValidation.validatePassword(password, pass_confirmation)) {
+		const hashedPassword = bcrypt.hashSync(password, 10);
+		User.create({
+			first_name: first_name,
+			last_name: last_name,
+			email: email,
+			username: username,
+			password: hashedPassword
+		})
+		.then(result => {
+			return res.redirect('users');
+		}).catch(err => { return res.sendStatus(400) })
+	} else {
 		return res.sendStatus(400);
 	}
 }
@@ -123,7 +110,6 @@ exports.getUpdateUser = (req, res) => {
 		return res.sendStatus(401);
 	}
 	const id = req.params.id;
-	console.log(id);
 	User.findByPk(id)
 		.then(user => {
 			return res.json(user);

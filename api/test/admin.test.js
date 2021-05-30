@@ -107,7 +107,7 @@ describe('Admin Login Tests', (done) => {
     let user = {
       first_name: "Test",
       last_name: "Test",
-      email: "Test",
+      email: "test@test.com",
       username: "Test",
       password: "password",
       pass_confirmation: "password"
@@ -121,4 +121,6 @@ describe('Admin Login Tests', (done) => {
       done();
     });
   });
+
+  //
 });

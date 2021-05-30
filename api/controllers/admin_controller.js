@@ -8,12 +8,7 @@ require('dotenv').config();
 const localStorage = require('local-storage');
 const JWT_KEY = require('../config/security');
 const path = require('path');
-
-// Login Section
-// exports.getAdminLogin = (req, res, next) => {
-// 	var list = ["<!admin json test!>"];
-// 	res.status(200).json(list)
-// }
+const formValidation = require('./formValidation')
 
 exports.postAdminLogin = (req, res, next) => {
 	const username = req.body.username;
@@ -89,28 +84,15 @@ exports.getUsers = (req, res, next) => {
 
 }
 
-// exports.getCreateUser = (req, res) => {
-// 	if (req.user.username != "admin") {
-// 		return res.sendStatus(401);
-// 	}
-// 	const username = req.user.username;
-// 	return res.status(200).json(username);
-// }
-
 exports.postUser = (req, res) => {
 	if (req.user.username != "admin") {
 		return res.sendStatus(401);
 	}
-	const authHeader = req.headers['cookie']
-	const token = authHeader && authHeader.split('=')[1]
-	const decoded = jwt.verify(token, JWT_KEY.secret);
-	const userId = decoded.id;
-	const admin = decoded.username;
 
-	const first_name = req.body.first_name;
-	const last_name = req.body.last_name;
-	const email = req.body.email;
-	const username = req.body.username;
+	const first_name = formValidation.validateName(req.body.first_name);
+	const last_name = formValidation.validateName(req.body.last_name);
+	const email = formValidation.validateEmail(req.body.email);
+	const username = formValidation.validateName(req.body.username);
 	const password = req.body.password;
 	const pass_confirmation = req.body.pass_confirmation;
 
@@ -123,9 +105,10 @@ exports.postUser = (req, res) => {
 				email: email,
 				username: username,
 				password: hashedPassword
-			}).then(results => {
+			})
+			.then(result => {
 				return res.redirect('users');
-			}).catch(err => { console.log(err) })
+			}).catch(err => { return res.sendStatus(400) })
 		} else {
 			return res.sendStatus(400)
 		}

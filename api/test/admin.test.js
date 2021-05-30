@@ -102,7 +102,7 @@ describe('Admin Login Tests', (done) => {
     });
   });
 
-  // postUser test
+  // postUser test valid data
   it('it should POST a user, 302 redirect to users', (done) => {
     let user = {
       first_name: "Test",
@@ -118,9 +118,29 @@ describe('Admin Login Tests', (done) => {
     .end((err, res) => {
       res.should.have.status(302);
       expect(res.headers['location']).to.equal('users');
+      console.log(res.headers)
       done();
     });
   });
 
-  //
+  //postUser test invalid data
+    it('it should not POST user expect response 400', (done) => {
+    let user = {
+      first_name: "",
+      last_name: "Test",
+      email: "test",
+      username: "Test",
+      password: "passwordpassword",
+      pass_confirmation: "password"
+    }
+    request(app).post('/postUser')
+    .set('Cookie', Cookies)
+    .send(user)
+    .end((err, res) => {
+      res.should.have.status(400);
+      done();
+    });
+  });
+
+  
 });

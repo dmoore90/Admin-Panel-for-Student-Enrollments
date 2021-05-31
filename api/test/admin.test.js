@@ -191,5 +191,30 @@ describe('Admin Controller Tests', () => {
       });
     });
   });
-
+  describe('/POST updateUser test', () => {
+    it('should POST updated user and respond 302 to users', (done) => {
+      let user = new User({
+        first_name: "Test",
+        last_name: "Test",
+        email: "test@test.com",
+        username: "testuser",
+        password: bcrypt.hashSync("password", 10)
+      });
+      var fname;
+      user.save().then(u => {
+        request(app)
+        .post('/updateUser')
+        .set('Cookie', Cookies)
+        .send({id: u.id, first_name: "changedFirstName", last_name: "Test", email: "test@test.com", username: "testuser"})
+        .end((err, res) => {
+          User.findByPk(u.id).then(result => {
+            res.should.have.status(302);
+            expect(res.headers['location']).to.equal('/users');
+            expect(result.first_name).to.equal("changedFirstName")
+            done();
+          }).catch(err => { console.log(err) })
+        });
+      })
+    })
+  })
 });

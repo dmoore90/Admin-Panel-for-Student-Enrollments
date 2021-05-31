@@ -32,11 +32,9 @@ var authenticatedUser = request.agent(app);
 
 describe('Admin Controller Tests', () => {
   beforeEach((done) => {
-    User.destroy({}, (err) => {
-      done();
-    })
+    User.destroy({ where: { username: "testuser" }});
     done();
-  })
+  });
 
   describe('/POST adminLogin invalid', () => {
     it('should return 401 response unauthorized for adminHome redirect', (done) => {
@@ -125,26 +123,26 @@ describe('Admin Controller Tests', () => {
     });
   });
   // // postUser test valid data
-  // describe('/POST postUser', () => {
-  //   it('it should POST a user, 302 redirect to users', (done) => {
-  //     const user = {
-  //       first_name: "Test",
-  //       last_name: "Test",
-  //       email: "test@test.com",
-  //       username: "Test",
-  //       password: "password",
-  //       pass_confirmation: "password"
-  //     }
-  //     request(app).post('/postUser')
-  //     .set('Cookie', Cookies)
-  //     .send(user)
-  //     .end((err, res) => {
-  //       res.should.have.status(302);
-  //       expect(res.headers['location']).to.equal('users');
-  //       done();
-  //     });
-  //   });
-  // });
+  describe('/POST postUser', () => {
+    it('it should POST a user, 302 redirect to users', (done) => {
+      const user = {
+        first_name: "Test",
+        last_name: "Test",
+        email: "test@test.com",
+        username: "testuser",
+        password: "password",
+        pass_confirmation: "password"
+      }
+      request(app).post('/postUser')
+      .set('Cookie', Cookies)
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(302);
+        expect(res.headers['location']).to.equal('users');
+        done();
+      });
+    });
+  });
   //postUser test invalid data
   describe('/POST postUser invalid data', () => {
     it('it should not POST user expect response 400', (done) => {
@@ -193,4 +191,5 @@ describe('Admin Controller Tests', () => {
       });
     });
   });
+
 });

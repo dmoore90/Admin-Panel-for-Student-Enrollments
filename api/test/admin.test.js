@@ -360,7 +360,7 @@ describe('Admin Controller Tests courses', () => {
 
 describe('Admin Controller Tests enrollments', () => {
   beforeEach((done) => {
-    Enrollment.destroy({ where: { course_name: "Test" }});
+    Enrollment.destroy({ where: { course_name: "Testcourse" }});
     done();
   });
   describe ('/GET enrollments test', () => {
@@ -381,26 +381,24 @@ describe('Admin Controller Tests enrollments', () => {
     });
   });
 
-  describe('/POST postCourse test', () => {
-    it('it should POST a course, 302 redirect to courses', (done) => {
+  describe('/POST enroll test', () => {
+    it('it should POST a course, 302 redirect to enrollments', (done) => {
       const course = {
-        course_name: "Test",
-        beginning_date: "04/01/2021",
-        ending_date: "05/01/2021",
-        instructor: "testuser"
+        course_name: "Testcourse",
+        username: "Testusername"
       }
       request(app)
-      .post('/postCourse')
+      .post('/enroll')
       .set('Cookie', Cookies)
       .send(course)
       .end((err, res) => {
         res.should.have.status(302);
-        expect(res.headers['location']).to.equal('/courses');
+        expect(res.headers['location']).to.equal('/enrollments');
         done();
       });
     });
   });
-  
+
   // describe('/GET updateUser/:id test', () => {
   //   it('should GET course and respond 200', (done) => {
   //     let course = new Course({

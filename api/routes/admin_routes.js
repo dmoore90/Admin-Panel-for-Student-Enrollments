@@ -27,10 +27,10 @@ adminRouter.post('/updateCourse', authenticateJWT, controller.postUpdateCourse);
 adminRouter.post('/deleteCourse', authenticateJWT, controller.deleteCourse);
 
 // Enrollment Section
+adminRouter.get('/enrollments', authenticateJWT, controller.getEnrollments);
+adminRouter.post('/enroll', authenticateJWT, controller.postEnrollment);
 adminRouter.get('/updateEnrollment/:id', authenticateJWT, controller.getUpdateEnrollment);
 adminRouter.post('/updateEnrollment', authenticateJWT, controller.postUpdateEnrollment);
-adminRouter.post('/enroll', authenticateJWT, controller.postEnrollment);
-adminRouter.get('/enrollments', authenticateJWT, controller.getEnrollments);
 adminRouter.post('/deleteEnrollment', authenticateJWT, controller.deleteEnrollment);
 
 module.exports = adminRouter;

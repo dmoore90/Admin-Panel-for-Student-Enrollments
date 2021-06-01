@@ -268,11 +268,28 @@ exports.getEnrollments = (req, res) => {
 	}
 	Enrollment.findAll()
 	.then(enrollments => {
-		res.location('/enrollments')
+		res.location('/enrollments');
 		return res.json(enrollments);
 
 	})
 	.catch(err => { console.log(err) })
+}
+
+exports.postEnrollment = (req, res) => {
+	if (req.user.username != "admin") {
+		return res.sendStatus(401);
+	}
+	const course_name = req.body.course_name;
+	const username = req.body.username;
+	
+	Enrollment.create({
+		course_name: course_name,
+		username: username
+	}).then(results => {
+		res.redirect('/enrollments')
+	}).catch(err => {
+		console.log(err)
+	})
 }
 
 exports.getUpdateEnrollment = (req, res) => {
@@ -305,23 +322,6 @@ exports.postUpdateEnrollment = (req, res) => {
 		})
 		.catch(err => {
 			console.log(err);
-		})
-}
-
-exports.postEnrollment = (req, res) => {
-	if (req.user.username != "admin") {
-		return res.sendStatus(401);
-	}
-	const course_name = req.body.course_name;
-	const username = req.body.username;
-	
-		Enrollment.create({
-			course_name: course_name,
-			username: username
-		}).then(results => {
-			res.redirect('enrollments')
-		}).catch(err => {
-			console.log(err)
 		})
 }
 

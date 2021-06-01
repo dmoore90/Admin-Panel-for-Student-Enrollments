@@ -142,26 +142,6 @@ describe('Admin Controller Tests adminlogin + users', () => {
     });
   });
 
-  describe('/POST postUser invalid data', () => {
-    it('it should not POST user expect response 400', (done) => {
-      let fakeuser = {
-        first_name: "",
-        last_name: "Test",
-        email: "test",
-        username: "Test",
-        password: "passwordpassword",
-        pass_confirmation: "password"
-      }
-      request(app).post('/postUser')
-      .set('Cookie', Cookies)
-      .send(fakeuser)
-      .end((err, res) => {
-        res.should.have.status(400);
-        done();
-      });
-    });
-  });
-
   describe('/GET updateUser/:id test', () => {
     it('should GET user and respond 200', (done) => {
       let user = new User({

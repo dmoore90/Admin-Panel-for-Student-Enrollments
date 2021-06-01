@@ -70,6 +70,7 @@ exports.getUsers = (req, res, next) => {
 		where: { role: 'NOSUPERUSER'}
 	})
 		.then(users => {
+			res.location('/users')
 			return res.status(200).json(users);
 		})
 		.catch(err => {
@@ -170,6 +171,7 @@ exports.getCourses = (req, res) => {
 	const username = decoded.username;
 	Course.findAll()
 	.then(courses => {
+		res.location('/courses')
 		return res.status(200).json(courses);
 	})
 	.catch(err => {

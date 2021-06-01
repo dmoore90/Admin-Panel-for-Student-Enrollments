@@ -46,9 +46,8 @@ describe('Admin Controller Tests', () => {
         done();
       });
     });    
-  })
+  });
 
-  // valid POST adminLogin
   describe('/POST adminlogin valid', () => {
     it('should return 302 response authorized redirect to adminHome', (done) => {
       authenticatedUser
@@ -61,18 +60,15 @@ describe('Admin Controller Tests', () => {
         done();
       });
     });
-  })
+  });
 
-  // invalid GET adminHome
   describe('/GET adminHome unauthorized', () => {
     it('should return a 401 response unauthorized', (done) => {
       request(app).get('/adminHome')
       .expect(401, done);
     });
-  })
+  });
 
-
-  // valid GET adminHome
   describe('/GET adminHome authorized', () => {
     it('should return 200 response authorized adminHome', (done) => {
       request(app).get('/adminHome')
@@ -85,8 +81,6 @@ describe('Admin Controller Tests', () => {
     });    
   });
 
-
-  // valid POST adminLogout
   describe('/POST adminLogout authorized', () => {
     it('should return 200 response valid adminLogout', (done) => {
       var req = request(app).post('/adminLogout');
@@ -97,7 +91,7 @@ describe('Admin Controller Tests', () => {
       });
     });
   });
-  // invalid POST adminLogout
+
   describe('/POST adminLogout unauthorized', () => {
     it('should return 401 response invalid adminLogut', (done) => {
       request(app).post('/adminLogout')
@@ -107,13 +101,14 @@ describe('Admin Controller Tests', () => {
       });
     });
   });
-  // getUsers test display users in admin
+
   describe('/GET users array', () => {
     it('should return 200 and validate users array', (done) => {
       request(app).get('/users')
       .set('Cookie', Cookies)
       .expect('Content-Type', /json/)
       .end((err, res) => {
+        expect(res.headers['location']).to.equal('/users');
         expect(res.body).to.be.an.instanceof(Array)
         .and.to.have.property(0)
         .that.includes.all.keys([ 'id', 'first_name', 'last_name', 'email', 'username']);
@@ -122,7 +117,7 @@ describe('Admin Controller Tests', () => {
       });
     });
   });
-  // // postUser test valid data
+
   describe('/POST postUser', () => {
     it('it should POST a user, 302 redirect to users', (done) => {
       const user = {
@@ -143,7 +138,7 @@ describe('Admin Controller Tests', () => {
       });
     });
   });
-  //postUser test invalid data
+
   describe('/POST postUser invalid data', () => {
     it('it should not POST user expect response 400', (done) => {
       let fakeuser = {
@@ -163,7 +158,7 @@ describe('Admin Controller Tests', () => {
       });
     });
   });
-    // GET getUpdateUser test
+
   describe('/GET updateUser/:id test', () => {
     it('should GET user and respond 200', (done) => {
       let user = new User({
@@ -191,6 +186,7 @@ describe('Admin Controller Tests', () => {
       });
     });
   });
+
   describe('/POST updateUser test', () => {
     it('should POST updated user and respond 302 to users', (done) => {
       let user = new User({
@@ -200,7 +196,6 @@ describe('Admin Controller Tests', () => {
         username: "testuser",
         password: bcrypt.hashSync("password", 10)
       });
-      var fname;
       user.save().then(u => {
         request(app)
         .post('/updateUser')
@@ -214,6 +209,49 @@ describe('Admin Controller Tests', () => {
             done();
           }).catch(err => { console.log(err) })
         });
+      });
+    });
+  });
+
+  describe('/POST deleteUser test', () => {
+    it('should POST deleteUser and respond 302 to users', (done) => {
+      let user = new User({
+        first_name: "Test",
+        last_name: "Test",
+        email: "test@test.com",
+        username: "testuser",
+        password: bcrypt.hashSync("password", 10)
+      });
+      user.save().then(u => {
+        request(app)
+        .post('/deleteUser')
+        .set('Cookie', Cookies)
+        .send({id: u.id})
+        .end((err, res) => {
+          res.should.have.status(302);
+          expect(res.headers['location']).to.equal('/users');
+          done();
+        });
+      });
+    });
+  });
+
+  describe ('/GET courses test', () => {
+    it('should /GET courses and respond 200', (done) => {
+      request(app)
+      .get('/courses')
+      .set('Cookie', Cookies)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        expect(res.headers['location']).to.equal('/courses');
+        if (res.body.length > 0) {
+          res.body[1].should.have.property('course_name');
+          res.body[1].should.have.property('beginning_date');
+          res.body[1].should.have.property('ending_date');
+          res.body[1].should.have.property('instructor');
+        }
+        done();
       })
     })
   })

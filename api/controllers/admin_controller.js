@@ -10,7 +10,7 @@ const JWT_KEY = require('../config/security');
 const path = require('path');
 const formValidation = require('./formValidation')
 
-exports.postAdminLogin = (req, res, next) => {
+exports.postAdminLogin = (req, res) => {
 	const username = req.body.username;
 	const password = req.body.password;
 
@@ -45,7 +45,7 @@ exports.getAdminHome = (req, res) => {
 	}
 }
 
-exports.postAdminLogout = (req, res, next) => {
+exports.postAdminLogout = (req, res) => {
 	if (req.user.username != "admin") {
 		return res.sendStatus(401);
 	}
@@ -62,7 +62,7 @@ exports.getUpdateUser = (req, res) => {
 	return res.sendStatus(200);
 }
 
-exports.getUsers = (req, res, next) => {
+exports.getUsers = (req, res) => {
 	if (req.user.username != "admin") {
 		return res.sendStatus(401);
 	}

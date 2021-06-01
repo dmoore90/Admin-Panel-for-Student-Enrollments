@@ -327,5 +327,25 @@ describe('Admin Controller Tests', () => {
     });
   });
 
-  
+  describe('/POST deleteCourse test', () => {
+    it('should POST deleteCourse and respond 302 to courses', (done) => {
+      let course = new Course({
+        course_name: "Test",
+        beginning_date: "04/01/2021",
+        ending_date: "05/01/2021",
+        instructor: "Test"
+      });
+      course.save().then(c => {
+        request(app)
+        .post('/deleteCourse')
+        .set('Cookie', Cookies)
+        .send({id: c.id})
+        .end((err, res) => {
+          res.should.have.status(302);
+          expect(res.headers['location']).to.equal('/courses');
+          done();
+        });
+      });
+    });
+  });  
 });

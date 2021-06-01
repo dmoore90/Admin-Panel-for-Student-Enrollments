@@ -14,9 +14,11 @@ let request = require('supertest');
 let status = request.status;
 
 const bcrypt = require('bcrypt');
+
 let sequelize = require('sequelize');
 let User = require('../models/User');
 let Course = require('../models/Course');
+let Enrollment = require('../models/Enrollment');
 
 const userCredentials = {
   username: 'admin', 
@@ -31,7 +33,7 @@ const fakeCredentials = {
 var Cookies;
 var authenticatedUser = request.agent(app);
 
-describe('Admin Controller Tests', () => {
+describe('Admin Controller Tests adminlogin + users', () => {
   beforeEach((done) => {
     User.destroy({ where: { username: "testuser" }});
     done();
@@ -236,7 +238,13 @@ describe('Admin Controller Tests', () => {
       });
     });
   });
+});
 
+describe('Admin Controller Tests courses', () => {
+  beforeEach((done) => {
+    Course.destroy({ where: { course_name: "Test" }});
+    done();
+  });
   describe ('/GET courses test', () => {
     it('should /GET courses and respond 200', (done) => {
       request(app)
@@ -314,12 +322,12 @@ describe('Admin Controller Tests', () => {
         request(app)
         .post('/updateCourse')
         .set('Cookie', Cookies)
-        .send({id: c.id, course_name: "changedCoursename", beginning_date: "04/01/2021", ending_date: "05/01/2021", instructor: "Test"})
+        .send({id: c.id, course_name: "Test", beginning_date: "04/01/2021", ending_date: "05/01/2021", instructor: "changedInstructor"})
         .end((err, res) => {
           Course.findByPk(c.id).then(result => {
             res.should.have.status(302);
             expect(res.headers['location']).to.equal('/courses');
-            expect(result.course_name).to.equal("changedCoursename")
+            expect(result.instructor).to.equal("changedInstructor")
             done();
           }).catch(err => { console.log(err) })
         });
@@ -347,5 +355,122 @@ describe('Admin Controller Tests', () => {
         });
       });
     });
-  });  
+  });
+});
+
+describe('Admin Controller Tests enrollments', () => {
+  beforeEach((done) => {
+    Enrollment.destroy({ where: { course_name: "Test" }});
+    done();
+  });
+  describe ('/GET enrollments test', () => {
+    it('should /GET enrollments and respond 200', (done) => {
+      request(app)
+      .get('/enrollments')
+      .set('Cookie', Cookies)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        expect(res.headers['location']).to.equal('/enrollments');
+        if (res.body.length > 0) {
+          res.body[1].should.have.property('course_name');
+          res.body[1].should.have.property('username');
+        }
+        done();
+      });
+    });
+  });
+
+  describe('/POST postCourse test', () => {
+    it('it should POST a course, 302 redirect to courses', (done) => {
+      const course = {
+        course_name: "Test",
+        beginning_date: "04/01/2021",
+        ending_date: "05/01/2021",
+        instructor: "testuser"
+      }
+      request(app)
+      .post('/postCourse')
+      .set('Cookie', Cookies)
+      .send(course)
+      .end((err, res) => {
+        res.should.have.status(302);
+        expect(res.headers['location']).to.equal('/courses');
+        done();
+      });
+    });
+  });
+  
+  // describe('/GET updateUser/:id test', () => {
+  //   it('should GET course and respond 200', (done) => {
+  //     let course = new Course({
+  //       course_name: "Test",
+  //       beginning_date: "04/01/2021",
+  //       ending_date: "05/01/2021",
+  //       instructor: "Test"
+  //     });
+  //     course.save().then(c => {
+  //       request(app)
+  //       .get('/updateCourse/' + c.id)
+  //       .set('Cookie', Cookies)
+  //       .send(course)
+  //       .end((err, res) => {
+  //         res.should.have.status(200);
+  //         res.body.should.be.a('object');
+  //         res.body.should.have.property('course_name');
+  //         res.body.should.have.property('beginning_date');
+  //         res.body.should.have.property('ending_date');
+  //         res.body.should.have.property('instructor');
+  //         done();
+  //       });
+  //     });
+  //   });
+  // });
+
+  // describe('/POST updateCourse test', () => {
+  //   it('should POST updated course and respond 302 to courses', (done) => {
+  //     let course = new Course({
+  //       course_name: "Test",
+  //       beginning_date: "04/01/2021",
+  //       ending_date: "05/01/2021",
+  //       instructor: "Test"
+  //     });
+  //     course.save().then(c => {
+  //       request(app)
+  //       .post('/updateCourse')
+  //       .set('Cookie', Cookies)
+  //       .send({id: c.id, course_name: "Test", beginning_date: "04/01/2021", ending_date: "05/01/2021", instructor: "changedInstructor"})
+  //       .end((err, res) => {
+  //         Course.findByPk(c.id).then(result => {
+  //           res.should.have.status(302);
+  //           expect(res.headers['location']).to.equal('/courses');
+  //           expect(result.instructor).to.equal("changedInstructor")
+  //           done();
+  //         }).catch(err => { console.log(err) })
+  //       });
+  //     });
+  //   });
+  // });
+
+  // describe('/POST deleteCourse test', () => {
+  //   it('should POST deleteCourse and respond 302 to courses', (done) => {
+  //     let course = new Course({
+  //       course_name: "Test",
+  //       beginning_date: "04/01/2021",
+  //       ending_date: "05/01/2021",
+  //       instructor: "Test"
+  //     });
+  //     course.save().then(c => {
+  //       request(app)
+  //       .post('/deleteCourse')
+  //       .set('Cookie', Cookies)
+  //       .send({id: c.id})
+  //       .end((err, res) => {
+  //         res.should.have.status(302);
+  //         expect(res.headers['location']).to.equal('/courses');
+  //         done();
+  //       });
+  //     });
+  //   });
+  // });
 });

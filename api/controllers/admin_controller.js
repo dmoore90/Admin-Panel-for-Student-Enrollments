@@ -268,6 +268,7 @@ exports.getEnrollments = (req, res) => {
 	}
 	Enrollment.findAll()
 	.then(enrollments => {
+		res.location('/enrollments')
 		return res.json(enrollments);
 
 	})

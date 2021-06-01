@@ -360,7 +360,7 @@ describe('Admin Controller Tests courses', () => {
 
 describe('Admin Controller Tests enrollments', () => {
   beforeEach((done) => {
-    Enrollment.destroy({ where: { course_name: "Testcourse" }});
+    Enrollment.destroy({ where: { course_name: "Test" }});
     done();
   });
   describe ('/GET enrollments test', () => {
@@ -384,8 +384,8 @@ describe('Admin Controller Tests enrollments', () => {
   describe('/POST enroll test', () => {
     it('it should POST a course, 302 redirect to enrollments', (done) => {
       const course = {
-        course_name: "Testcourse",
-        username: "Testusername"
+        course_name: "Test",
+        username: "Test"
       }
       request(app)
       .post('/enroll')
@@ -399,76 +399,67 @@ describe('Admin Controller Tests enrollments', () => {
     });
   });
 
-  // describe('/GET updateUser/:id test', () => {
-  //   it('should GET course and respond 200', (done) => {
-  //     let course = new Course({
-  //       course_name: "Test",
-  //       beginning_date: "04/01/2021",
-  //       ending_date: "05/01/2021",
-  //       instructor: "Test"
-  //     });
-  //     course.save().then(c => {
-  //       request(app)
-  //       .get('/updateCourse/' + c.id)
-  //       .set('Cookie', Cookies)
-  //       .send(course)
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         res.body.should.be.a('object');
-  //         res.body.should.have.property('course_name');
-  //         res.body.should.have.property('beginning_date');
-  //         res.body.should.have.property('ending_date');
-  //         res.body.should.have.property('instructor');
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
+  describe('/GET updateEnrollment/:id test', () => {
+    it('should GET enrollment and respond 200', (done) => {
+      let enrollment = new Enrollment({
+        course_name: "Test",
+        username: "Test"
+      });
+      enrollment.save().then(e => {
+        request(app)
+        .get('/updateEnrollment/' + e.id)
+        .set('Cookie', Cookies)
+        .send(enrollment)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.have.property('course_name');
+          res.body.should.have.property('username');
+          done();
+        });
+      });
+    });
+  });
 
-  // describe('/POST updateCourse test', () => {
-  //   it('should POST updated course and respond 302 to courses', (done) => {
-  //     let course = new Course({
-  //       course_name: "Test",
-  //       beginning_date: "04/01/2021",
-  //       ending_date: "05/01/2021",
-  //       instructor: "Test"
-  //     });
-  //     course.save().then(c => {
-  //       request(app)
-  //       .post('/updateCourse')
-  //       .set('Cookie', Cookies)
-  //       .send({id: c.id, course_name: "Test", beginning_date: "04/01/2021", ending_date: "05/01/2021", instructor: "changedInstructor"})
-  //       .end((err, res) => {
-  //         Course.findByPk(c.id).then(result => {
-  //           res.should.have.status(302);
-  //           expect(res.headers['location']).to.equal('/courses');
-  //           expect(result.instructor).to.equal("changedInstructor")
-  //           done();
-  //         }).catch(err => { console.log(err) })
-  //       });
-  //     });
-  //   });
-  // });
+  describe('/POST updateEnrollment test', () => {
+    it('should POST updated enrollment and respond 302 to enrollments', (done) => {
+      let enrollment = new Enrollment({
+        course_name: "Test",
+        username: "Test"
+      });
+      enrollment.save().then(e => {
+        request(app)
+        .post('/updateEnrollment')
+        .set('Cookie', Cookies)
+        .send({id: e.id, course_name: "Test", username: "Tested"})
+        .end((err, res) => {
+          Enrollment.findByPk(e.id).then(result => {
+            res.should.have.status(302);
+            expect(res.headers['location']).to.equal('/enrollments');
+            expect(result.username).to.equal("Tested")
+            done();
+          }).catch(err => { console.log(err) })
+        });
+      });
+    });
+  });
 
-  // describe('/POST deleteCourse test', () => {
-  //   it('should POST deleteCourse and respond 302 to courses', (done) => {
-  //     let course = new Course({
-  //       course_name: "Test",
-  //       beginning_date: "04/01/2021",
-  //       ending_date: "05/01/2021",
-  //       instructor: "Test"
-  //     });
-  //     course.save().then(c => {
-  //       request(app)
-  //       .post('/deleteCourse')
-  //       .set('Cookie', Cookies)
-  //       .send({id: c.id})
-  //       .end((err, res) => {
-  //         res.should.have.status(302);
-  //         expect(res.headers['location']).to.equal('/courses');
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
+  describe('/POST deleteEnrollment test', () => {
+    it('should POST deleteEnrollment and respond 302 to enrollments', (done) => {
+      let enrollment = new Enrollment({
+        course_name: "Test",
+        username: "Test"
+      });
+      enrollment.save().then(e => {
+        request(app)
+        .post('/deleteEnrollment')
+        .set('Cookie', Cookies)
+        .send({id: e.id})
+        .end((err, res) => {
+          res.should.have.status(302);
+          expect(res.headers['location']).to.equal('/enrollments');
+          done();
+        });
+      });
+    });
+  });
 });

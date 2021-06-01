@@ -16,6 +16,7 @@ let status = request.status;
 const bcrypt = require('bcrypt');
 let sequelize = require('sequelize');
 let User = require('../models/User');
+let Course = require('../models/Course');
 
 const userCredentials = {
   username: 'admin', 
@@ -256,12 +257,12 @@ describe('Admin Controller Tests', () => {
     });
   });
 
-  describe('/POST postCourse', () => {
+  describe('/POST postCourse test', () => {
     it('it should POST a course, 302 redirect to courses', (done) => {
       const course = {
         course_name: "Test",
-        beginning_date: "Test",
-        ending_date: "test@test.com",
+        beginning_date: "04/01/2021",
+        ending_date: "05/01/2021",
         instructor: "testuser"
       }
       request(app)
@@ -275,5 +276,56 @@ describe('Admin Controller Tests', () => {
       });
     });
   });
+  describe('/GET updateUser/:id test', () => {
+    it('should GET course and respond 200', (done) => {
+      let course = new Course({
+        course_name: "Test",
+        beginning_date: "04/01/2021",
+        ending_date: "05/01/2021",
+        instructor: "Test"
+      });
+      course.save().then(c => {
+        request(app)
+        .get('/updateCourse/' + c.id)
+        .set('Cookie', Cookies)
+        .send(course)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('course_name');
+          res.body.should.have.property('beginning_date');
+          res.body.should.have.property('ending_date');
+          res.body.should.have.property('instructor');
+          done();
+        });
+      });
+    });
+  });
+
+  describe('/POST updateCourse test', () => {
+    it('should POST updated course and respond 302 to courses', (done) => {
+      let course = new Course({
+        course_name: "Test",
+        beginning_date: "04/01/2021",
+        ending_date: "05/01/2021",
+        instructor: "Test"
+      });
+      course.save().then(c => {
+        request(app)
+        .post('/updateCourse')
+        .set('Cookie', Cookies)
+        .send({id: c.id, course_name: "changedCoursename", beginning_date: "04/01/2021", ending_date: "05/01/2021", instructor: "Test"})
+        .end((err, res) => {
+          Course.findByPk(c.id).then(result => {
+            res.should.have.status(302);
+            expect(res.headers['location']).to.equal('/courses');
+            expect(result.course_name).to.equal("changedCoursename")
+            done();
+          }).catch(err => { console.log(err) })
+        });
+      });
+    });
+  });
+
   
 });

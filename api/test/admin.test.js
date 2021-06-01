@@ -252,7 +252,28 @@ describe('Admin Controller Tests', () => {
           res.body[1].should.have.property('instructor');
         }
         done();
-      })
-    })
-  })
+      });
+    });
+  });
+
+  describe('/POST postCourse', () => {
+    it('it should POST a course, 302 redirect to courses', (done) => {
+      const course = {
+        course_name: "Test",
+        beginning_date: "Test",
+        ending_date: "test@test.com",
+        instructor: "testuser"
+      }
+      request(app)
+      .post('/postCourse')
+      .set('Cookie', Cookies)
+      .send(course)
+      .end((err, res) => {
+        res.should.have.status(302);
+        expect(res.headers['location']).to.equal('/courses');
+        done();
+      });
+    });
+  });
+  
 });

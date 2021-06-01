@@ -176,6 +176,7 @@ exports.getCourses = (req, res) => {
 	})
 	.catch(err => {
 		console.log(err);
+		return res.sendStatus(404)
 	})
 }
 
@@ -192,12 +193,6 @@ exports.postCourse = (req, res) => {
 		return res.sendStatus(401);
 	}
 
-	const authHeader = req.headers['cookie']
-	const token = authHeader && authHeader.split('=')[1]
-	const decoded = jwt.verify(token, JWT_KEY.secret);
-	const userId = decoded.id;
-	const admin = decoded.username;
-
 	const course_name = req.body.course_name;
 	const beginning_date = req.body.beginning_date;
 	const ending_date = req.body.ending_date;
@@ -208,7 +203,7 @@ exports.postCourse = (req, res) => {
 		ending_date: ending_date,
 		instructor: instructor
 	}).then(results => {
-		res.redirect('courses')
+		return res.redirect('/courses')
 	}).catch(err => { 
 		console.log(err) 
 	})

@@ -57,6 +57,6 @@ exports.postUserLogout = (req, res, next) => {
 	const admin = decoded.username;
 	res.clearCookie('auth')
 
-	return res.redirect('userLogin');
+	return res.sendStatus(200);
 }
 

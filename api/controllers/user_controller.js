@@ -10,9 +10,9 @@ const JWT_KEY = require('../config/security');
 
 // User Login Section
 
-exports.getUserLogin = (req, res) => {
- 	res.sendStatus(200);
-}
+// exports.getUserLogin = (req, res) => {
+//  	res.sendStatus(200);
+// }
 
 exports.postUserLogin = (req, res) => {
 	const username = req.body.username;
@@ -28,7 +28,7 @@ exports.postUserLogin = (req, res) => {
 					if (success) {
 			        	const token = jwt.sign({ id: user.dataValues.id, username: user.username }, JWT_KEY.secret, { expiresIn: "1h" });
 						res.cookie('auth', token);
-						return res.redirect('userHome')
+						return res.redirect('/userHome')
 					} else {
 						return res.sendStatus(401);
 					}
@@ -43,6 +43,7 @@ exports.getUserHome = (req, res) => {
 	const username = req.user.username;
 	Enrollment.findAll({ where: { username: username }})
 	.then(enrollments => {
+		res.location('/userHome')
 		return res.status(200).json(enrollments);
 	})
 	.catch(err => { console.log(err) })

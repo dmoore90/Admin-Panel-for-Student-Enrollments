@@ -10,7 +10,6 @@ adminRouter.get('/adminHome', authenticateJWT, controller.getAdminHome);
 
 // Users Section
 adminRouter.get('/users', authenticateJWT, controller.getUsers);
-// adminRouter.get('/createUser', authenticateJWT, controller.getCreateUser);
 adminRouter.post('/postUser', authenticateJWT, controller.postUser);
 adminRouter.get('/updateUser/:id', authenticateJWT, controller.getUpdateUser);
 adminRouter.post('/updateUser', authenticateJWT, controller.postUpdateUser);
@@ -18,7 +17,6 @@ adminRouter.post('/deleteUser', authenticateJWT, controller.postDeleteUser);
 
 // Courses Section
 adminRouter.get('/courses', authenticateJWT, controller.getCourses);
-adminRouter.get('/createCourse', authenticateJWT, controller.getCreateCourse);
 adminRouter.post('/postCourse', authenticateJWT, controller.postCourse);
 adminRouter.get('/updateCourse/:id', authenticateJWT, controller.getUpdateCourse);
 adminRouter.post('/updateCourse', authenticateJWT, controller.postUpdateCourse);

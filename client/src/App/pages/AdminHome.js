@@ -36,9 +36,6 @@ class AdminHome extends Component {
 					        <Link to={'./courses'}>
 					          <li><button variant="raised">Courses</button></li>
 					        </Link>
-					        <Link to={'./enroll'}>
-					          <li><button variant="raised">Enroll</button></li>
-					        </Link>
 					        <Link to={'./enrollments'}>
 					          <li><button variant="raised">Enrollments</button></li>
 					        </Link>

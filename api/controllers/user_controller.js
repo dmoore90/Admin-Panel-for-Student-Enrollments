@@ -10,10 +10,7 @@ const JWT_KEY = require('../config/security');
 
 // User Login Section
 
-// exports.getUserLogin = (req, res) => {
-//  	res.sendStatus(200);
-// }
-
+// find user in database authenticate, sign token, save cookie and redirect to /userHome
 exports.postUserLogin = (req, res) => {
 	const username = req.body.username;
 	const password = req.body.password;
@@ -39,6 +36,7 @@ exports.postUserLogin = (req, res) => {
 		})
 }
 
+// find enrollments with signed in user and return as json
 exports.getUserHome = (req, res) => {
 	const username = req.user.username;
 	Enrollment.findAll({ where: { username: username }})
@@ -49,14 +47,9 @@ exports.getUserHome = (req, res) => {
 	.catch(err => { console.log(err) })
 }
 
+// destroy cookie and respond 200
 exports.postUserLogout = (req, res, next) => {
-	const authHeader = req.headers['cookie']
-	const token = authHeader && authHeader.split('=')[1]
-	const decoded = jwt.verify(token, JWT_KEY.secret);
-	const userId = decoded.id;
-	const admin = decoded.username;
 	res.clearCookie('auth')
-
 	return res.sendStatus(200);
 }
 

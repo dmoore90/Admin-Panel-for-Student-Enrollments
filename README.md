@@ -8,7 +8,7 @@
 - ReactJS
 - Mocha, Chai, Supertest
 ### Getting Started
-This app requires NodeJS, ReactJS, MySQL database with database carna_db, user credentials 'user', 'pass'
+This app requires NodeJS, ReactJS, MySQL database with database carna_db, user privileges for all and credentials 'user', 'pass'
 Clone this repository and install dependencies.
 - $ `git clone git@github.com:dmoore90/carna.git`
 - $ `cd carna/api`

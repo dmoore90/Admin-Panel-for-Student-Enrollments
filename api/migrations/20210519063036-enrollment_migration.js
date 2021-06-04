@@ -13,10 +13,6 @@ module.exports = {
           type: Sequelize.STRING(45),
           allowNull: false
         },
-        student_name: {
-          type: Sequelize.STRING(45),
-          allowNull: false
-        },
         username: {
           type:Sequelize.STRING(45),
           allowNull: false

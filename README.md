@@ -8,10 +8,12 @@
 - ReactJS
 - Mocha, Chai, Supertest
 ### Getting Started
-Clone this repository and install dependencies
+This app requires NodeJS, ReactJS, MySQL database with database carna_db, user credentials 'user', 'pass'
+Clone this repository and install dependencies.
 - $ `git clone git@github.com:dmoore90/carna.git`
 - $ `cd carna/api`
 - $ `npm install`
+- $ `npx sequelize-cli db:migrate`
 - $ `cd carna/client`
 - $ `npm install`
 ### Run client and api with nodemon

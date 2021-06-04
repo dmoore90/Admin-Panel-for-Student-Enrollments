@@ -19,3 +19,5 @@ Clone this repository and install dependencies
 - $ `npm start`
 - $ `cd carna/client`
 - $ `npm start`
+### Run Tests
+- $ `npm test`

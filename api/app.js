@@ -7,12 +7,11 @@ const db = require('./db/connection');
 const bodyParser = require('body-parser');
 const adminController = require('./controllers/admin_controller');
 const userController = require('./controllers/user_controller');
+require('dotenv').config();
 var load = require('express-load');
 const cors = require('cors');
 
 const user = require('./models/User');
-
-
 
 app.set('view engine', 'ejs');
 
@@ -23,7 +22,8 @@ app.use(bodyParser.json());
 app.use(adminRoutes);
 app.use(userRoutes);
 
-const port = 3000;
+// const port = 3000;
+const port = process.env.NODEJS_LOCAL_PORT || 3000;
 app.listen(port);
 console.log(`listening on port ${port}`);
 module.exports = app;

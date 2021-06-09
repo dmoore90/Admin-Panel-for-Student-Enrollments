@@ -4,6 +4,8 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
+RUN chown -R user /app
+
 COPY package.json /app/
 
 COPY . /app

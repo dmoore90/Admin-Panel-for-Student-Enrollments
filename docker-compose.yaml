@@ -1,35 +1,50 @@
-# version: '3.8'
+version: "3.8"
 
-services: 
+services:
+  
   mysqldb:
     image: mysql
     restart: always
+    ports:
+    - 3306:3306
     env_file: ./.env
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - mysql_config:/etc/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: $MYSQL_DATABASE
-    ports:
-      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
-    volumes: 
-      - db-config:/etc/mysql
-      - db-data:/var/lib/mysql
-      - ./db/backup/files/:/data_backup/data
-  app:
+      MYSQL_HOST: localhost
+      MYSQL_USER: user
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: carna_db;
+
+
+  api:
     build:
-      context: .
-      dockerfile: ./api/Dockerfile
-    image: carna
-    env_file: ./.env
-    ports:
-      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
-    volumes: 
-      - ./app:/app
-      - app/node_modules
+      context: ./api/
+      dockerfile: Dockerfile
+    command: npm start
+    volumes:
+      - ./api/:/app
+      - /app/node_modules
     depends_on:
       - mysqldb
-    stdin_open: true
-    tty: true
+    ports:
+      - "3000:3000" 
+    env_file: ./api/.env
 
-# volumes: 
-#   db-config:
-#   db-data:
+  client:
+    build:
+      context: ./client/
+      dockerfile: Dockerfile
+    command: npm start
+    volumes:
+      - ./client/:/app
+      - /app/node_modules
+    depends_on:
+      - api
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql:
+  mysql_config:

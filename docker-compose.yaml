@@ -7,16 +7,17 @@ services:
     restart: always
     ports:
     - 3306:3306
-    env_file: ./.env
+    # env_file: ./.env
     volumes:
-      - ./mysql:/var/lib/mysql
+      - /var/lib/mysql:/var/lib/mysql
+      # - /etc/mysql:/etc/mysql
+      # - ./mysql-files:/var/lib/mysql-files
       - mysql_config:/etc/mysql
     environment:
       MYSQL_HOST: localhost
-      MYSQL_USER: user
+      MYSQL_ROOT_USER: user
       MYSQL_ROOT_PASSWORD: pass
       MYSQL_DATABASE: carna_db;
-
 
   api:
     build:
@@ -24,8 +25,8 @@ services:
       dockerfile: Dockerfile
     command: npm start
     volumes:
-      - ./api/:/app
-      - /app/node_modules
+      - ./api/:/api
+      - /api/node_modules
     depends_on:
       - mysqldb
     ports:
@@ -38,8 +39,8 @@ services:
       dockerfile: Dockerfile
     command: npm start
     volumes:
-      - ./client/:/app
-      - /app/node_modules
+      - ./client/:/client
+      - /client/node_modules
     depends_on:
       - api
     ports:

@@ -1,14 +1,16 @@
 FROM node:latest
 
-RUN mkdir -p /app
+RUN mkdir -p /client
 
-WORKDIR /app
+WORKDIR /client
 
-RUN chown -R user /app
+RUN adduser user
 
-COPY package.json /app/
+RUN chown -R user /client
 
-COPY . /app
+COPY package.json /client/
+
+COPY . /client
 
 RUN npm install
 

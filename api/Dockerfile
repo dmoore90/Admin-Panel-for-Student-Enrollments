@@ -1,12 +1,16 @@
 FROM node:latest
 
-RUN mkdir -p /app
+RUN mkdir -p /api
 
-WORKDIR /app
+WORKDIR /api
 
-COPY package.json /app/
+RUN adduser user
 
-COPY . /app
+RUN chown -R user ./
+
+COPY package.json /api/
+
+COPY . /api
 
 RUN npm install
 

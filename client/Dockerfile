@@ -8,6 +8,8 @@ RUN adduser user
 
 RUN chown -R user /client
 
+RUN chown -R node:node ./
+
 COPY package.json /client/
 
 COPY . /client

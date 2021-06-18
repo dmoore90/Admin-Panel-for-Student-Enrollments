@@ -8,9 +8,9 @@ COPY package.json /client/
 
 COPY . /client
 
-RUN npm install
-
 RUN chown -R node:node ./
+
+RUN npm install
 
 EXPOSE 3000
 

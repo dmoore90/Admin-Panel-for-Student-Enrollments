@@ -41,9 +41,9 @@ class AdminLogin extends Component {
 	render() {
 		return (
 			<div className="top-wrapper">
-			<ul>
-				<h1 class="title">Admin Login</h1>
-			</ul>
+				<div>
+					<h1 class="title">Admin Login</h1>
+				</div>
 				<div class="list-container">
 			      <form onSubmit={this.handleSubmit}>
 			        <div><label>username: <input type="text" name="username" value={this.state.email} onChange={this.handleChange} /></label></div>

@@ -31,7 +31,7 @@ class Enrollments extends Component {
 			        <li><Link to={'./adminHome'}><button variant="raised">AdminHome</button></Link></li>
 			        <li><Link to={'./enroll'}><button variant="raised">New Enrollment</button></Link></li>
 				</div>
-				<div class="list-users">
+				<div class="list-items">
 					{this.state.enrollments.map(enrollment => 
 				        <Link to={`./updateEnrollment/${enrollment.id}`}>
 				          <li key={enrollment.id}> { enrollment.course_name } { enrollment.username } </li>

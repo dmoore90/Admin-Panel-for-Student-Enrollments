@@ -39,12 +39,16 @@ class UserLogin extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<h1>User Login</h1>
+			<div className="top-wrapper">
 				<div>
+					<h1 class="title">User Login</h1>
+				</div>
+				<div class="list-container">
 			      <form onSubmit={this.handleSubmit}>
-			        <div><label>username: <input type="text" name="username" value={this.state.email} onChange={this.handleChange} /></label></div>
-			        <div><label>password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} /></label></div>
+			        <label>username:</label> 
+			        <li><input type="text" name="username" value={this.state.email} onChange={this.handleChange} /></li>
+			        <label>password:</label> 
+			        <li><input type="password" name="password" value={this.state.password} onChange={this.handleChange} /></li>
 			        <input type="submit" value="Submit" />
 			      </form>
 				</div>

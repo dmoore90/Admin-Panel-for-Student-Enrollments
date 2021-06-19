@@ -23,20 +23,21 @@ class UserHome extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<h1>User Home</h1>
-					<div>
-				        <ul>
-					        <Link to={'./userLogout'}>
-								<p><button variant="raised">Logout</button></p>
-					        </Link>
-					        
-					        <h1>Enrollments</h1>
-    						{this.state.enrollments.map(enrollments => 
-								<li key={enrollments.id}>{ enrollments.course_name } </li>
-							)}						        					                      
-				        </ul>
-					</div>
+			<div className="top-wrapper">
+				<div>
+					<h1 class="title">User Home</h1>
+				</div>
+				<div>
+			        <li style={{listStyleType: "none"}}><Link to={'./userLogout'}><button variant="raised">Logout</button></Link></li>
+				</div>
+				<div>
+					<h1 class="title">Enrollments</h1>
+				</div>        
+				<div class="list-items">
+					{this.state.enrollments.map(enrollments => 
+						<li key={enrollments.id}>{ enrollments.course_name } </li>
+					)}
+				</div>								        					                     
 			</div>
 		);
 	}

@@ -18,11 +18,11 @@
     display: list-item;
 }
 
-.list-users {
+.list-items {
 	margin-top:  5%;
 }
 
-.list-users li {
+.list-items li {
 	padding:  2px;
 	list-style: none;
 }

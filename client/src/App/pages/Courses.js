@@ -34,7 +34,7 @@ class Courses extends Component {
 				        <li><Link to={'./adminHome'}><button variant="raised">AdminHome</button></Link></li>
 				        <li><Link to={'./postCourse'}><button variant="raised">CreateCourse</button></Link></li>					                      
 			        </div>
-			        <div class="list-users">
+			        <div class="list-items">
 						{this.state.courses.map(course => 
 					        <Link to={`./updateCourse/${course.id}`}>
 					          <li key={course.id}>{ course.course_name } { course.beginning_date } { course.ending_date } { course.instructor }</li>

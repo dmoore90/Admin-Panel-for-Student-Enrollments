@@ -12,7 +12,7 @@
 ### Getting Started
 This app requires NodeJS, ReactJS, MySQL database with database carna_db, user privileges for all and credentials 'user', 'pass'
 Clone this repository and install dependencies.
-- $ `git clone git@github.com:dmoore90/carna.git`
+- download project
 - $ `cd carna/api`
 - $ `npm install`
 - $ `npx sequelize-cli db:migrate`

@@ -1,0 +1,4 @@
+const divStyle = {
+	color:  'blue',
+	backgroundImage:  'url(' + imgUrl + ')',
+};

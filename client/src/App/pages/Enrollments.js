@@ -23,23 +23,21 @@ class Enrollments extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<h1>Enrollments</h1>
-					<div>
-				        <ul>
-					        <Link to={'./adminHome'}>
-					          <li><button variant="raised">AdminHome</button></li>
-					        </Link>
-					        <Link to={'./enroll'}>
-					          <li><button variant="raised">New Enrollment</button></li>
-					        </Link>				                      
-				        </ul>
-						{this.state.enrollments.map(enrollment => 
-					        <Link to={`./updateEnrollment/${enrollment.id}`}>
-					          <li key={enrollment.id}> { enrollment.course_name } { enrollment.username } </li>
-					        </Link>	
-						)}
-					</div>
+			<div className="top-wrapper">
+				<div>
+					<h1>Enrollments</h1>	
+				</div>
+				<div class="list-container">
+			        <li><Link to={'./adminHome'}><button variant="raised">AdminHome</button></Link></li>
+			        <li><Link to={'./enroll'}><button variant="raised">New Enrollment</button></Link></li>
+				</div>
+				<div class="list-users">
+					{this.state.enrollments.map(enrollment => 
+				        <Link to={`./updateEnrollment/${enrollment.id}`}>
+				          <li key={enrollment.id}> { enrollment.course_name } { enrollment.username } </li>
+				        </Link>	
+					)}
+				</div>
 			</div>
 		);
 	}

@@ -73,22 +73,30 @@ class UpdateCourse extends Component {
 
 	render(props) {
 		return (
-			<div className="App">
-				<h1>Update Course</h1>
+			<div className="top-wrapper">
 				<div>
+					<h1 class="title">Update Course</h1>
+				</div>
+				<div class="list-container">
 			      <form onSubmit={this.handleSubmit}>
-			      	<div><input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} /></div>
-			    	<div><label>course_name: <input type="text" name="course_name" value={this.state.course_name} onChange={this.handleChange} /></label></div>
-			    	<div><label>beginning_date: <input type="text" name="beginning_date" value={this.state.beginning_date} onChange={this.handleChange} /></label></div>
-			    	<div><label>ending_date: <input type="text" name="ending_date" value={this.state.ending_date} onChange={this.handleChange} /></label></div>
-			        <div><label>instructor: <input type="text" name="instructor" value={this.state.instructor} onChange={this.handleChange} /></label></div>
+			      	<li><input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} /></li>
+			    	<label>course_name:</label> 
+			    	<li><input type="text" name="course_name" value={this.state.course_name} onChange={this.handleChange} /></li>
+			    	<label>beginning_date:</label> 
+			    	<li><input type="text" name="beginning_date" value={this.state.beginning_date} onChange={this.handleChange} /></li>
+			    	<label>ending_date:</label> 
+			    	<li><input type="text" name="ending_date" value={this.state.ending_date} onChange={this.handleChange} /></li>
+			        <label>instructor:</label> 
+			        <li><input type="text" name="instructor" value={this.state.instructor} onChange={this.handleChange} /></li>
 			        <input type="submit" value="Submit" />
 			      </form>
 				</div>
-				<h1>Delete Course</h1>
+				<div>
+					<h1 class="title">Delete Course</h1>
+				</div>
 				<div>
 			      <form onSubmit={this.handleDelete}>
-			      	<div><input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} /></div>
+			      	<input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} />
 			        <input type="submit" value="delete" />
 			      </form>
 				</div>

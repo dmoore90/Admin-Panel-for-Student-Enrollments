@@ -39,12 +39,16 @@ class Enroll extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<h1>New Enrollment</h1>
+			<div className="top-wrapper">
 				<div>
+					<h1 class="title">New Enrollment</h1>
+				</div>
+				<div class="list-container">
 			      <form onSubmit={this.handleSubmit}>
-			    	<div><label>course_name: <input type="text" name="course_name" value={this.state.course_name} onChange={this.handleChange} /></label></div>
-			    	<div><label>username: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} /></label></div>
+			    	<label>course_name:</label>
+			    	<li><input type="text" name="course_name" value={this.state.course_name} onChange={this.handleChange} /></li>
+			    	<label>username:</label> 
+			    	<li><input type="text" name="username" value={this.state.username} onChange={this.handleChange} /></li>
 			        <input type="submit" value="submit" />
 			      </form>
 				</div>

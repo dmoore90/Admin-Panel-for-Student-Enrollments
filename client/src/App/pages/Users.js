@@ -24,21 +24,17 @@ class Users extends Component {
 	render() {
 		return (
 			<div className="top-wrapper">
-			<ul>
+			<div>
 				<h1 class="title">Users</h1>
-			</ul>
+			</div>
 				<div class="list-container">
-			        <ul>
-				        <Link to={'./adminHome'}>
-				          <li><button variant="raised">AdminHome</button></li>
-				        </Link>
-				        <Link to={'./postUser'}>
-				          <li><button variant="raised">CreateUser</button></li>
-				        </Link>					        				                      
-			        </ul>
+				    <li><Link to={'./adminHome'}><button variant="raised">AdminHome</button></Link></li>
+				    <li><Link to={'./postUser'}><button variant="raised">CreateUser</button></Link></li>					        				                      
+				</div>
+				<div class="list-users">
 					{this.state.users.map(user => 
 				        <Link to={`./updateUser/${user.id}`}>
-				          <li key={user.id}>{ user.first_name } { user.last_name } { user.email } { user.username }</li>
+				        	<li key={user.id}>{ user.first_name } { user.last_name } { user.email } { user.username }</li>
 				        </Link>	
 					)}				        
 				</div>

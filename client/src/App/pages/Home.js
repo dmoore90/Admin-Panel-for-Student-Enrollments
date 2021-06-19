@@ -7,14 +7,12 @@ class Home extends Component {
   render() {
     return (
       <div class="top-wrapper">
-        <ul>
+        <div>
           <h1 class="title">Home</h1>
-        </ul>
+        </div>
         <div class="list-container">
-          <ul>
             <li><Link to={'./adminLogin'}><button>Admin Login</button></Link></li>
-            <li><Link to={'./userLogin'}><button>User Login</button></Link></li>              
-          </ul>
+            <li><Link to={'./userLogin'}><button>User Login</button></Link></li>           
         </div>
       </div>      
     );

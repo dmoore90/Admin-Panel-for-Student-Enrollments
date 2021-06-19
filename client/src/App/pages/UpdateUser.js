@@ -74,22 +74,28 @@ class UpdateUser extends Component {
 
 	render(props) {
 		return (
-			<div className="App">
-				<h1>Update User</h1>
+			<div className="top-wrapper">
 				<div>
+					<h1 class="title">Update User</h1>
+				</div>
+				<div class="list-container">
 			      <form onSubmit={this.handleSubmit}>
 			      	<div><input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} /></div>
-			    	<div><label>first_name: <input type="text" name="first_name" value={this.state.first_name} onChange={this.handleChange} /></label></div>
-			    	<div><label>last_name: <input type="text" name="last_name" value={this.state.last_name} onChange={this.handleChange} /></label></div>
-			    	<div><label>email: <input type="text" name="email" value={this.state.email} onChange={this.handleChange} /></label></div>
-			        <div><label>username: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} /></label></div>
+			    	<label>first_name:</label> 
+			    	<li><input type="text" name="first_name" value={this.state.first_name} onChange={this.handleChange} /></li>
+			    	<label>last_name:</label> 
+			    	<li><input type="text" name="last_name" value={this.state.last_name} onChange={this.handleChange} /></li>
+			    	<label>email:</label> 
+			    	<li><input type="text" name="email" value={this.state.email} onChange={this.handleChange} /></li>
+			        <label>username:</label> 
+			        <li><input type="text" name="username" value={this.state.username} onChange={this.handleChange} /></li>
 			        <input type="submit" value="Submit" />
-			      </form>
+			      </form>					
 				</div>
-				<h1>Delete User</h1>
+				<h1 class="title">Delete User</h1>
 				<div>
 			      <form onSubmit={this.handleDelete}>
-			      	<div><input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} /></div>
+			      	<input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} />
 			        <input type="submit" value="delete" />
 			      </form>
 				</div>

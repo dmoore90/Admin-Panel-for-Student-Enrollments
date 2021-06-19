@@ -25,24 +25,23 @@ class Courses extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<h1>Courses</h1>
-					<div>
-				        <ul>
-					        <Link to={'./adminHome'}>
-					          <li><button variant="raised">AdminHome</button></li>
-					        </Link>
-					        <Link to={'./postCourse'}>
-					          <li><button variant="raised">CreateCourse</button></li>
-					        </Link>					                      
-				        </ul>
+			<div className="top-wrapper">
+				<div>
+					<h1 class="title">Courses</h1>
+				</div>
+				<div>
+			        <div class="list-container">
+				        <li><Link to={'./adminHome'}><button variant="raised">AdminHome</button></Link></li>
+				        <li><Link to={'./postCourse'}><button variant="raised">CreateCourse</button></Link></li>					                      
+			        </div>
+			        <div class="list-users">
 						{this.state.courses.map(course => 
 					        <Link to={`./updateCourse/${course.id}`}>
-					
 					          <li key={course.id}>{ course.course_name } { course.beginning_date } { course.ending_date } { course.instructor }</li>
 					        </Link>	
-						)}	
-					</div>
+						)}
+			        </div>	
+				</div>
 			</div>
 		);
 	}

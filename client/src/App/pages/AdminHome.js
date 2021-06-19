@@ -25,28 +25,15 @@ class AdminHome extends Component {
 	render() {
 		return (
 			<div className="top-wrapper">
-				<ul>
+				<div>
 					<h1 class="title">Admin Home</h1>
-{/*					{this.state.list.map(i => 
-							<div>Welcome {i}!</div>
-						)}*/}
-				</ul>	
-					<div class="list-container">
-				        <ul>
-					        <Link to={'./users'}>
-					          <li><button variant="raised">Users</button></li>
-					        </Link>
-					        <Link to={'./courses'}>
-					          <li><button variant="raised">Courses</button></li>
-					        </Link>
-					        <Link to={'./enrollments'}>
-					          <li><button variant="raised">Enrollments</button></li>
-					        </Link>
-					        <Link to={'./adminLogout'}>
-					          <li><button variant="raised">AdminLogout</button></li>
-					        </Link>						        					                      
-				        </ul>
-			        </div>
+				</div>
+				<div class="list-container">
+			        <li><Link to={'./users'}><button variant="raised">Users</button></Link></li>
+			        <li><Link to={'./courses'}><button variant="raised">Courses</button></Link></li>
+			        <li><Link to={'./enrollments'}><button variant="raised">Enrollments</button></Link></li>
+			        <li><Link to={'./adminLogout'}><button variant="raised">AdminLogout</button></Link></li>
+		        </div>
 			</div>
 		);
 	}

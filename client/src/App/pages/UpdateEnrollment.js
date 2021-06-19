@@ -72,20 +72,26 @@ class UpdateEnrollment extends Component {
 
 	render(props) {
 		return (
-			<div className="App">
-				<h1>Update Enrollment</h1>
+			<div className="top-wrapper">
 				<div>
+					<h1 class="title">Update Enrollment</h1>
+				</div>
+				<div class="list-container">
 			      <form onSubmit={this.handleSubmit}>
-			      	<div><input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} /></div>
-			    	<div><label>course_name: <input type="text" name="course_name" value={this.state.course_name} onChange={this.handleChange} /></label></div>
-			        <div><label>username: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} /></label></div>
+			      	<li><input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} /></li>
+			    	<label>course_name:</label> 
+			    	<li><input type="text" name="course_name" value={this.state.course_name} onChange={this.handleChange} /></li>
+			        <label>username:</label> 
+			        <li><input type="text" name="username" value={this.state.username} onChange={this.handleChange} /></li>
 			        <input type="submit" value="Submit" />
 			      </form>
 				</div>
-				<h1>Delete Enrollment</h1>
+				<div>
+					<h1 class="title">Delete Enrollment</h1>
+				</div>
 				<div>
 			      <form onSubmit={this.handleDelete}>
-			      	<div><input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} /></div>
+			      	<input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} />
 			        <input type="submit" value="delete" />
 			      </form>
 				</div>

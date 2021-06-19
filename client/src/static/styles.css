@@ -17,3 +17,12 @@
     padding: 2px;
     display: list-item;
 }
+
+.list-users {
+	margin-top:  5%;
+}
+
+.list-users li {
+	padding:  2px;
+	list-style: none;
+}

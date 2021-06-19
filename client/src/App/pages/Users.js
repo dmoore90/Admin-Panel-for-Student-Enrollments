@@ -23,23 +23,25 @@ class Users extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<h1>Users</h1>
-					<div>
-				        <ul>
-					        <Link to={'./adminHome'}>
-					          <li><button variant="raised">AdminHome</button></li>
-					        </Link>
-					        <Link to={'./postUser'}>
-					          <li><button variant="raised">CreateUser</button></li>
-					        </Link>					        				                      
-				        </ul>
-						{this.state.users.map(user => 
-					        <Link to={`./updateUser/${user.id}`}>
-					          <li key={user.id}>{ user.first_name } { user.last_name } { user.email } { user.username }</li>
-					        </Link>	
-						)}				        
-					</div>
+			<div className="top-wrapper">
+			<ul>
+				<h1 class="title">Users</h1>
+			</ul>
+				<div class="list-container">
+			        <ul>
+				        <Link to={'./adminHome'}>
+				          <li><button variant="raised">AdminHome</button></li>
+				        </Link>
+				        <Link to={'./postUser'}>
+				          <li><button variant="raised">CreateUser</button></li>
+				        </Link>					        				                      
+			        </ul>
+					{this.state.users.map(user => 
+				        <Link to={`./updateUser/${user.id}`}>
+				          <li key={user.id}>{ user.first_name } { user.last_name } { user.email } { user.username }</li>
+				        </Link>	
+					)}				        
+				</div>
 			</div>
 		);
 	}

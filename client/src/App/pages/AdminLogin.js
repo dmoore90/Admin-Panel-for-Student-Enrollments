@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../../static/styles.css';
 
 class AdminLogin extends Component {
 	constructor(props) {
@@ -39,9 +40,11 @@ class AdminLogin extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<h1>Admin Login</h1>
-				<div>
+			<div className="top-wrapper">
+			<ul>
+				<h1 class="title">Admin Login</h1>
+			</ul>
+				<div class="list-container">
 			      <form onSubmit={this.handleSubmit}>
 			        <div><label>username: <input type="text" name="username" value={this.state.email} onChange={this.handleChange} /></label></div>
 			        <div><label>password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} /></label></div>

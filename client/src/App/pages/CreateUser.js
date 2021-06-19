@@ -43,16 +43,24 @@ class CreateUser extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<h1>Create User</h1>
-				<div>
+			<div className="top-wrapper">
+			<ul>
+				<h1 class="title">Create User</h1>
+			</ul>
+				<div class="list-container">
 			      <form onSubmit={this.handleSubmit}>
-			    	<div><label>first_name: <input type="text" name="first_name" value={this.state.first_name} onChange={this.handleChange} /></label></div>
-			    	<div><label>last_name: <input type="text" name="last_name" value={this.state.last_name} onChange={this.handleChange} /></label></div>
-			    	<div><label>email: <input type="text" name="email" value={this.state.email} onChange={this.handleChange} /></label></div>
-			        <div><label>username: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} /></label></div>
-			        <div><label>password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} /></label></div>
-					<div><label>Password Confirmation: <input type="password" name="pass_confirmation" value={this.state.pass_confirmation} onChange={this.handleChange} /></label></div>
+			      	<li><label>first_name:</label></li>
+			    	<li><div><input type="text" name="first_name" value={this.state.first_name} onChange={this.handleChange} /></div></li>
+			    	<li><label>last_name:</label></li>
+			    	<li><div><input type="text" name="last_name" value={this.state.last_name} onChange={this.handleChange} /></div></li>
+			    	<li><label>email:</label></li>
+			    	<li><div><input type="text" name="email" value={this.state.email} onChange={this.handleChange} /></div></li>
+			    	<li><label>username</label></li>
+			        <li><div><input type="text" name="username" value={this.state.username} onChange={this.handleChange} /></div></li>
+			        <li><label>password:</label></li>
+			        <li><div><input type="password" name="password" value={this.state.password} onChange={this.handleChange} /></div></li>
+					<li><label>Password Confirmation:</label></li>
+					<li><div><input type="password" name="pass_confirmation" value={this.state.pass_confirmation} onChange={this.handleChange} /></div></li>
 			        <input type="submit" value="Submit" />
 			      </form>
 				</div>

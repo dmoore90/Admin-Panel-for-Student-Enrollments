@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import '../../static/styles.css'
 
 class AdminHome extends Component {
 	constructor() {
@@ -23,12 +24,14 @@ class AdminHome extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<h1>Admin Home</h1>
-					<div>
-						{this.state.list.map(i => 
+			<div className="top-wrapper">
+				<ul>
+					<h1 class="title">Admin Home</h1>
+{/*					{this.state.list.map(i => 
 							<div>Welcome {i}!</div>
-						)}
+						)}*/}
+				</ul>	
+					<div class="list-container">
 				        <ul>
 					        <Link to={'./users'}>
 					          <li><button variant="raised">Users</button></li>
@@ -43,7 +46,7 @@ class AdminHome extends Component {
 					          <li><button variant="raised">AdminLogout</button></li>
 					        </Link>						        					                      
 				        </ul>
-					</div>
+			        </div>
 			</div>
 		);
 	}

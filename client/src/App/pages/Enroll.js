@@ -18,6 +18,7 @@ class Enroll extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
+		console.log(this.state);
 		fetch('http://localhost:3000/enroll', {
 			method: 'POST',
 			withCredentials: true,
@@ -47,7 +48,7 @@ class Enroll extends Component {
 			      <form onSubmit={this.handleSubmit}>
 			    	<label>course_name:</label>
 			    	<li><input type="text" name="course_name" value={this.state.course_name} onChange={this.handleChange} /></li>
-			    	<label>username:</label> 
+			    	<label>student username:</label> 
 			    	<li><input type="text" name="username" value={this.state.username} onChange={this.handleChange} /></li>
 			        <input type="submit" value="submit" />
 			      </form>

@@ -1,4 +1,4 @@
-# Express Auth REST API with REACTJS
+# Admin Panel for Student Enrollments
 ## A REST API with ExpressJS for backend and ReactJS for front end. Implements JWT Authentication, RESTful resources, and Testing.
 ### Libraries Used
 - Express
